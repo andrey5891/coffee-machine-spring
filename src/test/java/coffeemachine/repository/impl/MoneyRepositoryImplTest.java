@@ -5,22 +5,27 @@ import coffeemachine.exception.NoMoneyAmountInParametersException;
 import coffeemachine.repository.MoneyRepository;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MoneyRepositoryImplTest {
 
-    private final static MoneyRepository moneyRepository = new MoneyRepositoryImpl();
+    private static Long BANK_MONEY_LOCATION_ID = 1L;
+    private static Long WRONG_MONEY_LOCATION_ID = 7L;
+    private static Long SOME_AMOUNT_1200 = 1200L;
+    private static Long SOME_AMOUNT_1800 = 1800L;
+
+    private final static MoneyRepository moneyRepository = new MoneyRepositoryImpl(
+            new ArrayList<Money>(
+                    Arrays.asList(Money.builder().moneyLocationId(BANK_MONEY_LOCATION_ID).amount(1500L).build())
+    ));
 
     private static Money createdMoney;
 
     private static Optional<Money> lastMoneyByMoneyLocation;
-
-    private static Long SOME_AMOUNT_1200 = 1200L;
-    private static Long SOME_AMOUNT_1800 = 1800L;
-    private static Long BANK_MONEY_LOCATION_ID = 1L;
-    private static Long WRONG_MONEY_LOCATION_ID = 7L;
 
     @Test
     void createSuccessful() {

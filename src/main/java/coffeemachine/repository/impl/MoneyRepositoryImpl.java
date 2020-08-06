@@ -15,8 +15,14 @@ public class MoneyRepositoryImpl implements coffeemachine.repository.MoneyReposi
         fillDbSimulationByBeginValues();
     }
 
-    public MoneyRepositoryImpl(List<Money> moneyList) { //для тестов
+    public MoneyRepositoryImpl(List<Money> moneyList) {
+        moneyMap = new HashMap<>();
 
+        moneyList.forEach(e -> {
+            Long id = getNextIdValue();
+            e.setId(id);
+            moneyMap.put(id, e);
+        });
     }
 
     @Override
