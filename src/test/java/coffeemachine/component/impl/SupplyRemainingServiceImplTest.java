@@ -1,6 +1,5 @@
 package coffeemachine.component.impl;
 
-
 import coffeemachine.component.SupplyRemainingService;
 import coffeemachine.dto.RemainingSupply;
 import org.junit.jupiter.api.Test;
