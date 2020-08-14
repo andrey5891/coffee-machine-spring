@@ -1,7 +1,6 @@
 package coffeemachine.repository.impl;
 
 import coffeemachine.entity.Money;
-import coffeemachine.enumeration.MoneyLocationEnum;
 import coffeemachine.exception.NoMoneyAmountInParametersException;
 import coffeemachine.repository.MoneyRepository;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MoneyRepositoryImplTest {
 
     private static final Long BANK_MONEY_LOCATION_ID = 1L;
-    private static final Long WRONG_MONEY_LOCATION_ID = 7L;
     private static final Long SOME_AMOUNT_1200 = 1200L;
     private static final Long SOME_AMOUNT_1800 = 1800L;
     private static final Long SOME_AMOUNT_1500 = 1500L;

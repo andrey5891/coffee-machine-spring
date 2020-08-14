@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
+import static coffeemachine.enumeration.SupplyTypeEnum.MILK;
+import static coffeemachine.enumeration.SupplyTypeEnum.WATER;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SupplyRepositoryImplTest {
@@ -19,7 +21,6 @@ class SupplyRepositoryImplTest {
 
     private static final Long WATER_SUPPLY_TYPE_ID = 1L;
     private static final Long MILK_SUPPLY_TYPE_ID = 2L;
-    private static final Long WRONG_SUPPLY_TYPE_ID = 7L;
     private static final Integer SOME_AMOUNT_500 = 500;
     private static final Integer SOME_AMOUNT_600 = 600;
     private static final Integer SOME_AMOUNT_1900 = 1900;
@@ -63,7 +64,7 @@ class SupplyRepositoryImplTest {
                         .build()
         );
 
-        lastSupplyBySupplyType = supplyRepository.getLastBySupplyType(MILK_SUPPLY_TYPE_ID);
+        lastSupplyBySupplyType = supplyRepository.getLastBySupplyType(MILK);
 
         assertTrue(lastSupplyBySupplyType.isPresent());
         assertEquals(createdSupply, lastSupplyBySupplyType.get());
@@ -78,16 +79,9 @@ class SupplyRepositoryImplTest {
                         .amount(SOME_AMOUNT_500)
                         .build()
         );
-        lastSupplyBySupplyType = supplyRepository.getLastBySupplyType(WATER_SUPPLY_TYPE_ID);
+        lastSupplyBySupplyType = supplyRepository.getLastBySupplyType(WATER);
 
         assertTrue(lastSupplyBySupplyType.isPresent());
         assertEquals(createdSupply, lastSupplyBySupplyType.get());
-    }
-
-    @Test
-    void getLastByNonexistentSupplyType() {
-        lastSupplyBySupplyType = supplyRepository.getLastBySupplyType(WRONG_SUPPLY_TYPE_ID);
-
-        assertTrue(lastSupplyBySupplyType.isEmpty());
     }
 }

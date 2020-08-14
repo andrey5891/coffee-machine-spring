@@ -15,7 +15,7 @@ public interface MoneyRepository {
     Money create(Money money);
 
     /**
-     * @param moneyLocation - money location
+     * @param moneyLocation - money location enum
      * @return last value money amount by money location ID
      */
     Optional<Money> getLastByMoneyLocation(MoneyLocationEnum moneyLocation);

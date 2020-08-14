@@ -4,7 +4,7 @@ public enum SupplyTypeEnum {
     WATER("WATER"),
     MILK("MILK"),
     COFFEE("COFFEE"),
-    CUPS("CUP");
+    CUP("CUP");
 
     private final String name;
 

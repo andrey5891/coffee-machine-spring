@@ -43,7 +43,7 @@ public class MoneyRepositoryImpl implements MoneyRepository {
 
     @Override
     public Optional<Money> getLastByMoneyLocation(MoneyLocationEnum moneyLocation) {
-        Long locationId = moneyLocationRepository.getIdMoneyLocationIdByMoneyLocationEnum(moneyLocation).get();
+        Long locationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(moneyLocation).get();
 
         return moneyMap.entrySet().stream()
                 .filter(n -> n.getValue().getMoneyLocationId().equals(locationId))
@@ -60,7 +60,6 @@ public class MoneyRepositoryImpl implements MoneyRepository {
         this.moneyMap = new HashMap<>(
                 Map.of(
                         currentId, Money.builder().id(getNextIdValue()).moneyLocationId(1L).amount(1500L).build()
-                )
-        );
+                ));
     }
 }

@@ -1,6 +1,7 @@
 package coffeemachine.repository;
 
 import coffeemachine.entity.Supply;
+import coffeemachine.enumeration.SupplyTypeEnum;
 import coffeemachine.exception.NoSupplyAmountInParametersException;
 
 import java.util.Optional;
@@ -14,8 +15,8 @@ public interface SupplyRepository {
     Supply create(Supply supply);
 
     /**
-     * @param supplyTypeId - supply type location ID
+     * @param supplyType - supply type enum
      * @return last value supply by supply type ID
      */
-    Optional<Supply> getLastBySupplyType(Long supplyTypeId);
+    Optional<Supply> getLastBySupplyType(SupplyTypeEnum supplyType);
 }

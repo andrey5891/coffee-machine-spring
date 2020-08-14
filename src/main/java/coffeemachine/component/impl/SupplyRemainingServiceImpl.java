@@ -10,6 +10,7 @@ import coffeemachine.repository.impl.MoneyRepositoryImpl;
 import coffeemachine.repository.impl.SupplyRepositoryImpl;
 
 import static coffeemachine.enumeration.MoneyLocationEnum.BANK;
+import static coffeemachine.enumeration.SupplyTypeEnum.*;
 
 public class SupplyRemainingServiceImpl implements SupplyRemainingService {
     private final SupplyRepository supplyRepository = new SupplyRepositoryImpl();
@@ -17,16 +18,15 @@ public class SupplyRemainingServiceImpl implements SupplyRemainingService {
 
     @Override
     public RemainingSupply getRemainingSupply() {
-        RemainingSupply remainingSupply = new RemainingSupply();
         Supply supplyWithZeroAmount = Supply.builder().amount(0).build();
         Money moneyWithZeroAmount = Money.builder().amount(0L).build();
 
-        remainingSupply.setAvailableWaterVolume(supplyRepository.getLastBySupplyType(1L).orElse(supplyWithZeroAmount).getAmount());
-        remainingSupply.setAvailableMilkVolume(supplyRepository.getLastBySupplyType(2L).orElse(supplyWithZeroAmount).getAmount());
-        remainingSupply.setAvailableCoffeeWeight(supplyRepository.getLastBySupplyType(3L).orElse(supplyWithZeroAmount).getAmount());
-        remainingSupply.setAvailableCupNumber(supplyRepository.getLastBySupplyType(4L).orElse(supplyWithZeroAmount).getAmount());
-        remainingSupply.setAvailableCashAmount(moneyRepository.getLastByMoneyLocation(BANK).orElse(moneyWithZeroAmount).getAmount());
-
-        return remainingSupply;
+        return RemainingSupply.builder()
+                .availableWaterVolume(supplyRepository.getLastBySupplyType(WATER).orElse(supplyWithZeroAmount).getAmount())
+                .availableMilkVolume(supplyRepository.getLastBySupplyType(MILK).orElse(supplyWithZeroAmount).getAmount())
+                .availableCoffeeWeight(supplyRepository.getLastBySupplyType(COFFEE).orElse(supplyWithZeroAmount).getAmount())
+                .availableCupNumber(supplyRepository.getLastBySupplyType(CUP).orElse(supplyWithZeroAmount).getAmount())
+                .availableCashAmount(moneyRepository.getLastByMoneyLocation(BANK).orElse(moneyWithZeroAmount).getAmount())
+                .build();
     }
 }

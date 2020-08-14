@@ -1,8 +1,10 @@
 package coffeemachine.repository.impl;
 
 import coffeemachine.entity.Supply;
+import coffeemachine.enumeration.SupplyTypeEnum;
 import coffeemachine.exception.NoSupplyAmountInParametersException;
 import coffeemachine.repository.SupplyRepository;
+import coffeemachine.repository.SupplyTypeRepository;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -14,6 +16,8 @@ public class SupplyRepositoryImpl implements SupplyRepository {
     private Long currentId = 1L;
 
     private Map<Long, Supply> supplyMap;
+
+    private SupplyTypeRepository supplyTypeRepository = new SupplyTypeRepositoryImpl();
 
     public SupplyRepositoryImpl() {
         fillDbSimulationByBeginValues();
@@ -31,7 +35,9 @@ public class SupplyRepositoryImpl implements SupplyRepository {
     }
 
     @Override
-    public Optional<Supply> getLastBySupplyType(Long supplyTypeId) {
+    public Optional<Supply> getLastBySupplyType(SupplyTypeEnum supplyType) {
+        Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyType).get();
+
         return supplyMap.entrySet().stream()
                 .filter(e -> e.getValue().getSupplyTypeId().equals(supplyTypeId))
                 .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))

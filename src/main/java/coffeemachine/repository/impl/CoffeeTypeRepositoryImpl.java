@@ -30,7 +30,6 @@ public class CoffeeTypeRepositoryImpl implements coffeemachine.repository.Coffee
                           .coffeeBeanAmount(20L).price(7L).build(),
                   3L, CoffeeType.builder().id(1L).name("CAPPUCCINO").waterAmount(200L).milkAmount(100L)
                           .coffeeBeanAmount(12L).price(6L).build()
-          )
-        );
+          ));
     }
 }
