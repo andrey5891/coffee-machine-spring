@@ -1,6 +1,7 @@
 package coffeemachine.repository.impl;
 
 import coffeemachine.entity.Money;
+import coffeemachine.enumeration.MoneyLocationEnum;
 import coffeemachine.exception.NoMoneyAmountInParametersException;
 import coffeemachine.repository.MoneyRepository;
 import org.junit.jupiter.api.Test;
@@ -9,19 +10,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
+import static coffeemachine.enumeration.MoneyLocationEnum.BANK;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MoneyRepositoryImplTest {
 
-    private static Long BANK_MONEY_LOCATION_ID = 1L;
-    private static Long WRONG_MONEY_LOCATION_ID = 7L;
-    private static Long SOME_AMOUNT_1200 = 1200L;
-    private static Long SOME_AMOUNT_1800 = 1800L;
+    private static final Long BANK_MONEY_LOCATION_ID = 1L;
+    private static final Long WRONG_MONEY_LOCATION_ID = 7L;
+    private static final Long SOME_AMOUNT_1200 = 1200L;
+    private static final Long SOME_AMOUNT_1800 = 1800L;
+    private static final Long SOME_AMOUNT_1500 = 1500L;
 
     private final static MoneyRepository moneyRepository = new MoneyRepositoryImpl(
             new ArrayList<Money>(
-                    Arrays.asList(Money.builder().moneyLocationId(BANK_MONEY_LOCATION_ID).amount(1500L).build())
-    ));
+                    Arrays.asList(Money.builder().moneyLocationId(BANK_MONEY_LOCATION_ID).amount(SOME_AMOUNT_1500).build())
+            ));
 
     private static Money createdMoney;
 
@@ -65,16 +68,9 @@ public class MoneyRepositoryImplTest {
                 .amount(SOME_AMOUNT_1800)
                 .build());
 
-        lastMoneyByMoneyLocation = moneyRepository.getLastByMoneyLocation(BANK_MONEY_LOCATION_ID);
+        lastMoneyByMoneyLocation = moneyRepository.getLastByMoneyLocation(BANK);
 
         assertTrue(lastMoneyByMoneyLocation.isPresent());
         assertEquals(createdMoney, lastMoneyByMoneyLocation.get());
-    }
-
-    @Test
-    void getLastByNonexistentMoneyLocation() {
-        lastMoneyByMoneyLocation = moneyRepository.getLastByMoneyLocation(WRONG_MONEY_LOCATION_ID);
-
-        assertTrue(lastMoneyByMoneyLocation.isEmpty());
     }
 }

@@ -17,12 +17,12 @@ class SupplyRepositoryImplTest {
 
     private static Optional<Supply> lastSupplyBySupplyType;
 
-    private static Long WATER_SUPPLY_TYPE_ID = 1L;
-    private static Long MILK_SUPPLY_TYPE_ID = 2L;
-    private static Long WRONG_SUPPLY_TYPE_ID = 7L;
-    private static Integer SOME_AMOUNT_500 = 500;
-    private static Integer SOME_AMOUNT_600 = 600;
-    private static Integer SOME_AMOUNT_1900 = 1900;
+    private static final Long WATER_SUPPLY_TYPE_ID = 1L;
+    private static final Long MILK_SUPPLY_TYPE_ID = 2L;
+    private static final Long WRONG_SUPPLY_TYPE_ID = 7L;
+    private static final Integer SOME_AMOUNT_500 = 500;
+    private static final Integer SOME_AMOUNT_600 = 600;
+    private static final Integer SOME_AMOUNT_1900 = 1900;
 
 
     @Test

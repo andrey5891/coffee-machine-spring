@@ -1,6 +1,7 @@
 package coffeemachine.repository;
 
 import coffeemachine.entity.Money;
+import coffeemachine.enumeration.MoneyLocationEnum;
 import coffeemachine.exception.NoMoneyAmountInParametersException;
 
 import java.util.Optional;
@@ -14,8 +15,8 @@ public interface MoneyRepository {
     Money create(Money money);
 
     /**
-     * @param locationId - money location ID
+     * @param moneyLocation - money location
      * @return last value money amount by money location ID
      */
-    Optional<Money> getLastByMoneyLocation(Long locationId);
+    Optional<Money> getLastByMoneyLocation(MoneyLocationEnum moneyLocation);
 }

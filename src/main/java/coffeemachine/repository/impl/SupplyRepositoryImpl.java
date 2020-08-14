@@ -48,7 +48,8 @@ public class SupplyRepositoryImpl implements SupplyRepository {
                 Map.of(
                         currentId, Supply.builder().id(getNextIdValue()).supplyTypeId(1L).amount(500).build(),
                         currentId, Supply.builder().id(getNextIdValue()).supplyTypeId(2L).amount(300).build(),
-                        currentId, Supply.builder().id(getNextIdValue()).supplyTypeId(3L).amount(150).build()
+                        currentId, Supply.builder().id(getNextIdValue()).supplyTypeId(3L).amount(150).build(),
+                        currentId, Supply.builder().id(getNextIdValue()).supplyTypeId(4L).amount(10).build()
                 )
         );
     }

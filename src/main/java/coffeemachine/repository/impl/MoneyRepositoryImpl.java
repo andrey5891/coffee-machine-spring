@@ -1,15 +1,20 @@
 package coffeemachine.repository.impl;
 
 import coffeemachine.entity.Money;
+import coffeemachine.enumeration.MoneyLocationEnum;
 import coffeemachine.exception.NoMoneyAmountInParametersException;
+import coffeemachine.repository.MoneyLocationRepository;
+import coffeemachine.repository.MoneyRepository;
 
 import java.util.*;
 
-public class MoneyRepositoryImpl implements coffeemachine.repository.MoneyRepository {
+public class MoneyRepositoryImpl implements MoneyRepository {
 
     private Long currentId = 1L;
 
     private Map<Long, Money> moneyMap;
+
+    private final MoneyLocationRepository moneyLocationRepository = new MoneyLocationRepositoryImpl();
 
     public MoneyRepositoryImpl() {
         fillDbSimulationByBeginValues();
@@ -37,7 +42,9 @@ public class MoneyRepositoryImpl implements coffeemachine.repository.MoneyReposi
     }
 
     @Override
-    public Optional<Money> getLastByMoneyLocation(Long locationId) {
+    public Optional<Money> getLastByMoneyLocation(MoneyLocationEnum moneyLocation) {
+        Long locationId = moneyLocationRepository.getIdMoneyLocationIdByMoneyLocationEnum(moneyLocation).get();
+
         return moneyMap.entrySet().stream()
                 .filter(n -> n.getValue().getMoneyLocationId().equals(locationId))
                 .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))

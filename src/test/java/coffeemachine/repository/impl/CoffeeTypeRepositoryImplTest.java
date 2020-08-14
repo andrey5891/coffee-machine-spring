@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CoffeeTypeRepositoryImplTest {
 
     private static final CoffeeTypeRepository coffeeTypeRepository = new CoffeeTypeRepositoryImpl();
-    private static CoffeeType espressoCoffeeTypeTemplate = CoffeeType.builder()
+    private static final CoffeeType espressoCoffeeTypeTemplate = CoffeeType.builder()
             .name("ESPRESSO").waterAmount(250L).milkAmount(0L).coffeeBeanAmount(16L).price(4L).build();
 
     private static Optional<CoffeeType> coffeeTypeByName;
