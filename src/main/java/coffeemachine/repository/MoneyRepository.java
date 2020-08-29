@@ -1,7 +1,6 @@
 package coffeemachine.repository;
 
 import coffeemachine.entity.Money;
-import coffeemachine.enumeration.MoneyLocationEnum;
 import coffeemachine.exception.NoMoneyAmountInParametersException;
 
 import java.util.Optional;
