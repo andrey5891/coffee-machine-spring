@@ -1,2 +1,5 @@
-package coffeemachine.converter;public class Converter {
+package coffeemachine.converter;
+
+public interface Converter <S, T> {
+    T convert(S source);
 }

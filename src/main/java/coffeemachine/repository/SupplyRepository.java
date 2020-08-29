@@ -15,8 +15,8 @@ public interface SupplyRepository {
     Supply create(Supply supply);
 
     /**
-     * @param supplyType - supply type enum
+     * @param supplyTypeId - supply type id int supply type table
      * @return last value supply by supply type ID
      */
-    Optional<Supply> getLastBySupplyType(SupplyTypeEnum supplyType);
+    Optional<Supply> getLastBySupplyTypeId(Long supplyTypeId);
 }

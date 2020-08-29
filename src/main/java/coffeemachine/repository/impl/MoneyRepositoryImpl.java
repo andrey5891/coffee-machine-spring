@@ -14,8 +14,6 @@ public class MoneyRepositoryImpl implements MoneyRepository {
 
     private Map<Long, Money> moneyMap;
 
-    private final MoneyLocationRepository moneyLocationRepository = new MoneyLocationRepositoryImpl();
-
     public MoneyRepositoryImpl() {
         fillDbSimulationByBeginValues();
     }
@@ -42,9 +40,7 @@ public class MoneyRepositoryImpl implements MoneyRepository {
     }
 
     @Override
-    public Optional<Money> getLastByMoneyLocation(MoneyLocationEnum moneyLocation) {
-        Long locationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(moneyLocation).get();
-
+    public Optional<Money> getLastByMoneyLocationId(Long locationId) {
         return moneyMap.entrySet().stream()
                 .filter(n -> n.getValue().getMoneyLocationId().equals(locationId))
                 .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))

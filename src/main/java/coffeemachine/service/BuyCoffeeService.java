@@ -1,4 +1,4 @@
-package coffeemachine.component;
+package coffeemachine.service;
 
 import coffeemachine.enumeration.CoffeeVariantEnum;
 

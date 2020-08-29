@@ -4,6 +4,6 @@ import coffeemachine.model.SupplyModel;
 
 import java.util.List;
 
-public interface SupplyRemainingService {
+public interface SupplyRemainingComponent {
     List<SupplyModel> getRemainingSupply();
 }

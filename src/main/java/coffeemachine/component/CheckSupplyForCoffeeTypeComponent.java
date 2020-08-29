@@ -2,6 +2,6 @@ package coffeemachine.component;
 
 import coffeemachine.enumeration.CoffeeVariantEnum;
 
-public interface CheckSupplyForCoffeeTypeService {
+public interface CheckSupplyForCoffeeTypeComponent {
     String checkAvailableSupplyAndGetMessage(CoffeeVariantEnum coffeeVariant);
 }

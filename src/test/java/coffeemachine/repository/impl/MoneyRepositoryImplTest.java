@@ -66,7 +66,7 @@ public class MoneyRepositoryImplTest {
                 .amount(SOME_AMOUNT_1800)
                 .build());
 
-        lastMoneyByMoneyLocation = moneyRepository.getLastByMoneyLocation(BANK);
+        lastMoneyByMoneyLocation = moneyRepository.getLastByMoneyLocationId(BANK_MONEY_LOCATION_ID);
 
         assertTrue(lastMoneyByMoneyLocation.isPresent());
         assertEquals(createdMoney, lastMoneyByMoneyLocation.get());

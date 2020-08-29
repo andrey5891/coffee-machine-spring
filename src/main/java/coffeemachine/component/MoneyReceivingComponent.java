@@ -1,6 +1,6 @@
 package coffeemachine.component;
 
-public interface MoneyReceivingService {
+public interface MoneyReceivingComponent {
     Long getAvailableCashAmount();
 
     void setAvailAbleCashAMountToZero();

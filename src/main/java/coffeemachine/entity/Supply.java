@@ -3,8 +3,8 @@ package coffeemachine.entity;
 import lombok.Builder;
 import lombok.Data;
 
-@Builder
 @Data
+@Builder
 public class Supply {
     private Long id;
 

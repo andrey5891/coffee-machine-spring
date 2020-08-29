@@ -17,8 +17,6 @@ public class SupplyRepositoryImpl implements SupplyRepository {
 
     private Map<Long, Supply> supplyMap;
 
-    private SupplyTypeRepository supplyTypeRepository = new SupplyTypeRepositoryImpl();
-
     public SupplyRepositoryImpl() {
         fillDbSimulationByBeginValues();
     }
@@ -34,10 +32,7 @@ public class SupplyRepositoryImpl implements SupplyRepository {
         return supply;
     }
 
-    @Override
-    public Optional<Supply> getLastBySupplyType(SupplyTypeEnum supplyType) {
-        Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyType).get();
-
+    public Optional<Supply> getLastBySupplyTypeId(Long supplyTypeId) {
         return supplyMap.entrySet().stream()
                 .filter(e -> e.getValue().getSupplyTypeId().equals(supplyTypeId))
                 .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))

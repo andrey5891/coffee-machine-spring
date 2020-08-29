@@ -25,7 +25,6 @@ class SupplyRepositoryImplTest {
     private static final Integer SOME_AMOUNT_600 = 600;
     private static final Integer SOME_AMOUNT_1900 = 1900;
 
-
     @Test
     void createSuccessful() {
         Supply expectedSupply =
@@ -64,7 +63,7 @@ class SupplyRepositoryImplTest {
                         .build()
         );
 
-        lastSupplyBySupplyType = supplyRepository.getLastBySupplyType(MILK);
+        lastSupplyBySupplyType = supplyRepository.getLastBySupplyTypeId(MILK_SUPPLY_TYPE_ID);
 
         assertTrue(lastSupplyBySupplyType.isPresent());
         assertEquals(createdSupply, lastSupplyBySupplyType.get());
@@ -79,7 +78,7 @@ class SupplyRepositoryImplTest {
                         .amount(SOME_AMOUNT_500)
                         .build()
         );
-        lastSupplyBySupplyType = supplyRepository.getLastBySupplyType(WATER);
+        lastSupplyBySupplyType = supplyRepository.getLastBySupplyTypeId(WATER_SUPPLY_TYPE_ID);
 
         assertTrue(lastSupplyBySupplyType.isPresent());
         assertEquals(createdSupply, lastSupplyBySupplyType.get());

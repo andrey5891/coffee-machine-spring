@@ -1,5 +1,5 @@
 package coffeemachine.component;
 
-public interface FillCoffeeMachineOfSupplyService {
+public interface FillCoffeeMachineOfSupplyComponent {
     void fillAllSupply();
 }
