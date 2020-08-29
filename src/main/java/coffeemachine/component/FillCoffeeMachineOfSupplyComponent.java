@@ -5,5 +5,5 @@ import coffeemachine.model.SupplyModel;
 import java.util.List;
 
 public interface FillCoffeeMachineOfSupplyComponent {
-    void fillAllSupply(List<SupplyModel> supplyModelList);
+    List<SupplyModel> fillAllSupply(List<SupplyModel> supplyModelList);
 }
