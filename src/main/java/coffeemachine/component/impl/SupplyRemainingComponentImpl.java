@@ -31,6 +31,6 @@ public class SupplyRemainingComponentImpl implements SupplyRemainingComponent {
 
     private SupplyModel getSupplyModelOfType(SupplyTypeEnum supplyTypeEnum) {
         return converter.convert(supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyTypeEnum).get()).get());
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyTypeEnum).get()).get()); //продумать опшинл
     }
 }
