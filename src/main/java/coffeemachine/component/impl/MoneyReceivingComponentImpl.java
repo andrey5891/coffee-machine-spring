@@ -15,13 +15,13 @@ public class MoneyReceivingComponentImpl implements MoneyReceivingComponent {
 
     @Override
     public Long getAvailableCashAmount() {
-        Long moneyInBankLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK).get();
-        return moneyRepository.getLastByMoneyLocationId(moneyInBankLocationId).get().getAmount();
+        Long moneyInBankLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK).orElseThrow();
+        return moneyRepository.getLastByMoneyLocationId(moneyInBankLocationId).orElseThrow().getAmount();
     }
 
     @Override
     public Money setAvailAbleCashAMountToZero() {
-        Long moneyInBankLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK).get();
+        Long moneyInBankLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK).orElseThrow();
         return moneyRepository.create(Money.builder()
                 .moneyLocationId(moneyInBankLocationId)
                 .amount(0L)

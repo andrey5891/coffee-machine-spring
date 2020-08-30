@@ -16,23 +16,23 @@ public class CheckSupplyForCoffeeTypeComponentImpl implements CheckSupplyForCoff
     @Override
     public String checkAvailableSupplyAndGetMessage(CoffeeVariantEnum coffeeVariant) {
         Integer availableWaterVolume = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER).get())
-                .get()
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER).orElseThrow())
+                .orElseThrow()
                 .getAmount();
 
         Integer availableMilkVolume = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).get())
-                .get()
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).orElseThrow())
+                .orElseThrow()
                 .getAmount();
 
         Integer availableCoffeeWeight = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).get())
-                .get()
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).orElseThrow())
+                .orElseThrow()
                 .getAmount();
 
         Integer availableCupNumber = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).get())
-                .get()
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).orElseThrow())
+                .orElseThrow()
                 .getAmount();
 
         String resultMessage = "Sorry, not enough ";

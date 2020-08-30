@@ -21,7 +21,7 @@ public class FillCoffeeMachineOfSupplyComponentImpl implements FillCoffeeMachine
     public List<SupplyModel> fillAllSupply(List<SupplyModel> supplyModelList) {
         for (int i = 0; i < 4; i++) {
             Long id = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.values()[i]).get();
-            Integer amount = supplyRepository.getLastBySupplyTypeId(id).get().getAmount();
+            Integer amount = supplyRepository.getLastBySupplyTypeId(id).orElseThrow().getAmount();
             SupplyModel supplyModel = supplyModelList.get(i);
             Supply supply = Supply.builder()
                     .supplyTypeId(supplyModel.getSupplyTypeId())

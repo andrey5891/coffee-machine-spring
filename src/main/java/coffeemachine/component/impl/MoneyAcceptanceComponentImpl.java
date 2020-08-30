@@ -18,7 +18,7 @@ public class MoneyAcceptanceComponentImpl implements MoneyAcceptanceComponent {
 
     @Override
     public Boolean isMoneyReceived(CoffeeVariantEnum coffeeVariant) {
-        Long moneyInReceiverLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(RECEIVER).get();
+        Long moneyInReceiverLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(RECEIVER).orElseThrow();
         Optional<Money> moneyInReceiver = moneyRepository.getLastByMoneyLocationId(moneyInReceiverLocationId);
 
         if (moneyInReceiver.isEmpty() || moneyInReceiver.get().getAmount().intValue() < coffeeVariant.getPrice()) {
@@ -30,10 +30,11 @@ public class MoneyAcceptanceComponentImpl implements MoneyAcceptanceComponent {
 
     @Override
     public Money moveMoneyFromReceiverToBank() {
-        Long moneyInReceiverLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(RECEIVER).get();
-        Long moneyInBankLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK).get();
-        Long amountInReceiver = moneyRepository.getLastByMoneyLocationId(moneyInReceiverLocationId).get().getAmount();
-        Long amountInBank = moneyRepository.getLastByMoneyLocationId(moneyInBankLocationId).get().getAmount();
+        Long moneyInReceiverLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(RECEIVER).orElseThrow();
+        Long moneyInBankLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK).orElseThrow();
+        Long amountInReceiver = moneyRepository.getLastByMoneyLocationId(moneyInReceiverLocationId).orElseThrow().getAmount();
+        Long amountInBank = moneyRepository.getLastByMoneyLocationId(moneyInBankLocationId).orElseThrow().getAmount();
+
         return moneyRepository.create(Money.builder()
                 .moneyLocationId(moneyInBankLocationId)
                 .amount(amountInBank + amountInReceiver)
