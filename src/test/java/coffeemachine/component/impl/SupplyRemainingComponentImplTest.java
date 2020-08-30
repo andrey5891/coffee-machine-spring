@@ -2,7 +2,6 @@ package coffeemachine.component.impl;
 
 import coffeemachine.converter.Converter;
 import coffeemachine.entity.Supply;
-import coffeemachine.enumeration.SupplyTypeEnum;
 import coffeemachine.model.SupplyModel;
 import coffeemachine.repository.SupplyRepository;
 import coffeemachine.repository.SupplyTypeRepository;
@@ -15,7 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static coffeemachine.enumeration.SupplyTypeEnum.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,21 +41,44 @@ public class SupplyRemainingComponentImplTest {
     public static final long CUP_SUPPLY_TYPE_ID = 4L;
 
     private static final Supply WATER_SUPPLY = Supply.builder()
-            .amount(AMOUNT).supplyTypeId(WATER_SUPPLY_TYPE_ID).build();
+            .amount(AMOUNT)
+            .supplyTypeId(WATER_SUPPLY_TYPE_ID)
+            .build();
 
     private static final Supply MILK_SUPPLY = Supply.builder()
-            .amount(AMOUNT).supplyTypeId(MILK_SUPPLY_TYPE_ID).build();
+            .amount(AMOUNT)
+            .supplyTypeId(MILK_SUPPLY_TYPE_ID)
+            .build();
 
     private static final Supply COFFEE_SUPPLY = Supply.builder()
-            .amount(AMOUNT).supplyTypeId(COFFEE_SUPPLY_TYPE_ID).build();
+            .amount(AMOUNT)
+            .supplyTypeId(COFFEE_SUPPLY_TYPE_ID)
+            .build();
 
     private static final Supply CUP_SUPPLY = Supply.builder()
-            .amount(AMOUNT).supplyTypeId(CUP_SUPPLY_TYPE_ID).build();
+            .amount(AMOUNT)
+            .supplyTypeId(CUP_SUPPLY_TYPE_ID)
+            .build();
 
-    public static final SupplyModel WATER_SUPPLY_MODEL = SupplyModel.builder().supplyTypeId(WATER_SUPPLY_TYPE_ID).amount(AMOUNT).build();
-    public static final SupplyModel MILK_SUPPLY_MODEL = SupplyModel.builder().supplyTypeId(MILK_SUPPLY_TYPE_ID).amount(AMOUNT).build();
-    public static final SupplyModel COFFEE_SUPPLY_MODEL = SupplyModel.builder().supplyTypeId(COFFEE_SUPPLY_TYPE_ID).amount(AMOUNT).build();
-    public static final SupplyModel CUP_SUPPLY_MODEL = SupplyModel.builder().supplyTypeId(CUP_SUPPLY_TYPE_ID).amount(AMOUNT).build();
+    public static final SupplyModel WATER_SUPPLY_MODEL = SupplyModel.builder()
+            .supplyTypeId(WATER_SUPPLY_TYPE_ID)
+            .amount(AMOUNT)
+            .build();
+
+    public static final SupplyModel MILK_SUPPLY_MODEL = SupplyModel.builder()
+            .supplyTypeId(MILK_SUPPLY_TYPE_ID)
+            .amount(AMOUNT)
+            .build();
+
+    public static final SupplyModel COFFEE_SUPPLY_MODEL = SupplyModel.builder()
+            .supplyTypeId(COFFEE_SUPPLY_TYPE_ID)
+            .amount(AMOUNT)
+            .build();
+
+    public static final SupplyModel CUP_SUPPLY_MODEL = SupplyModel.builder()
+            .supplyTypeId(CUP_SUPPLY_TYPE_ID)
+            .amount(AMOUNT)
+            .build();
 
     private static final List<SupplyModel> supplyModelList = List.of(
             WATER_SUPPLY_MODEL,
@@ -72,20 +96,41 @@ public class SupplyRemainingComponentImplTest {
 
     @Test
     public void getSupplyRemaining() {
-        when(supplyRepository.getLastBySupplyTypeId(1L)).thenReturn(Optional.of(WATER_SUPPLY));
-        when(supplyRepository.getLastBySupplyTypeId(2L)).thenReturn(Optional.of(MILK_SUPPLY));
-        when(supplyRepository.getLastBySupplyTypeId(3l)).thenReturn(Optional.of(COFFEE_SUPPLY));
-        when(supplyRepository.getLastBySupplyTypeId(4l)).thenReturn(Optional.of(CUP_SUPPLY));
+        when(supplyRepository.getLastBySupplyTypeId(WATER_SUPPLY_TYPE_ID))
+                .thenReturn(Optional.of(WATER_SUPPLY));
 
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.WATER)).thenReturn(Optional.of(WATER_SUPPLY_TYPE_ID));
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.MILK)).thenReturn(Optional.of(MILK_SUPPLY_TYPE_ID));
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.COFFEE)).thenReturn(Optional.of(COFFEE_SUPPLY_TYPE_ID));
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.CUP)).thenReturn(Optional.of(CUP_SUPPLY_TYPE_ID));
+        when(supplyRepository.getLastBySupplyTypeId(MILK_SUPPLY_TYPE_ID))
+                .thenReturn(Optional.of(MILK_SUPPLY));
 
-        when(converter.convert(WATER_SUPPLY)).thenReturn(WATER_SUPPLY_MODEL);
-        when(converter.convert(MILK_SUPPLY)).thenReturn(MILK_SUPPLY_MODEL);
-        when(converter.convert(COFFEE_SUPPLY)).thenReturn(COFFEE_SUPPLY_MODEL);
-        when(converter.convert(CUP_SUPPLY)).thenReturn(CUP_SUPPLY_MODEL);
+        when(supplyRepository.getLastBySupplyTypeId(COFFEE_SUPPLY_TYPE_ID))
+                .thenReturn(Optional.of(COFFEE_SUPPLY));
+
+        when(supplyRepository.getLastBySupplyTypeId(CUP_SUPPLY_TYPE_ID))
+                .thenReturn(Optional.of(CUP_SUPPLY));
+
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER))
+                .thenReturn(Optional.of(WATER_SUPPLY_TYPE_ID));
+
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK))
+                .thenReturn(Optional.of(MILK_SUPPLY_TYPE_ID));
+
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE))
+                .thenReturn(Optional.of(COFFEE_SUPPLY_TYPE_ID));
+
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP))
+                .thenReturn(Optional.of(CUP_SUPPLY_TYPE_ID));
+
+        when(converter.convert(WATER_SUPPLY))
+                .thenReturn(WATER_SUPPLY_MODEL);
+
+        when(converter.convert(MILK_SUPPLY))
+                .thenReturn(MILK_SUPPLY_MODEL);
+
+        when(converter.convert(COFFEE_SUPPLY))
+                .thenReturn(COFFEE_SUPPLY_MODEL);
+
+        when(converter.convert(CUP_SUPPLY))
+                .thenReturn(CUP_SUPPLY_MODEL);
 
         assertArrayEquals(supplyModelList.toArray(), supplyRemainingService.getRemainingSupply().toArray());
     }

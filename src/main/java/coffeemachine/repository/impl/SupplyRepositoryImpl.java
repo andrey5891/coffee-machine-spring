@@ -1,10 +1,8 @@
 package coffeemachine.repository.impl;
 
 import coffeemachine.entity.Supply;
-import coffeemachine.enumeration.SupplyTypeEnum;
 import coffeemachine.exception.NoSupplyAmountInParametersException;
 import coffeemachine.repository.SupplyRepository;
-import coffeemachine.repository.SupplyTypeRepository;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -12,9 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class SupplyRepositoryImpl implements SupplyRepository {
-
     private Long currentId = 1L;
-
     private Map<Long, Supply> supplyMap;
 
     public SupplyRepositoryImpl() {
@@ -28,7 +24,6 @@ public class SupplyRepositoryImpl implements SupplyRepository {
         }
         supply.setId(currentId++);
         supplyMap.put(supply.getId(), supply);
-
         return supply;
     }
 
@@ -47,11 +42,29 @@ public class SupplyRepositoryImpl implements SupplyRepository {
     private void fillDbSimulationByBeginValues() {
         this.supplyMap = new HashMap<>(
                 Map.of(
-                        currentId, Supply.builder().id(getNextIdValue()).supplyTypeId(1L).amount(500).build(),
-                        currentId, Supply.builder().id(getNextIdValue()).supplyTypeId(2L).amount(300).build(),
-                        currentId, Supply.builder().id(getNextIdValue()).supplyTypeId(3L).amount(150).build(),
-                        currentId, Supply.builder().id(getNextIdValue()).supplyTypeId(4L).amount(10).build()
-                )
-        );
+                        currentId, Supply.builder()
+                                .id(getNextIdValue())
+                                .supplyTypeId(1L)
+                                .amount(500)
+                                .build(),
+
+                        currentId, Supply.builder()
+                                .id(getNextIdValue())
+                                .supplyTypeId(2L)
+                                .amount(300)
+                                .build(),
+
+                        currentId, Supply.builder()
+                                .id(getNextIdValue())
+                                .supplyTypeId(3L)
+                                .amount(150)
+                                .build(),
+
+                        currentId, Supply.builder()
+                                .id(getNextIdValue())
+                                .supplyTypeId(4L)
+                                .amount(10)
+                                .build()
+                ));
     }
 }

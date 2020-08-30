@@ -11,9 +11,16 @@ import java.util.Optional;
 public class MoneyLocationRepositoryImpl implements MoneyLocationRepository {
 
     private Map<Long, MoneyLocation> moneyLocationMap = new HashMap<>(Map.of(
-            1L, MoneyLocation.builder().id(1L).name("BANK").build(),
-            2L, MoneyLocation.builder().id(2L).name("RECEIVER").build()
-            ));
+            1L, MoneyLocation.builder()
+                    .id(1L)
+                    .name("BANK")
+                    .build(),
+
+            2L, MoneyLocation.builder()
+                    .id(2L)
+                    .name("RECEIVER")
+                    .build()
+    ));
 
     @Override
     public Optional<Long> getMoneyLocationIdByMoneyLocationEnum(MoneyLocationEnum moneyLocation) {

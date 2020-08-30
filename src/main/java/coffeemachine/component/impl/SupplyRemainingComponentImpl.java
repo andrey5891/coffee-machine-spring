@@ -12,9 +12,10 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import static coffeemachine.enumeration.SupplyTypeEnum.*;
+
 @RequiredArgsConstructor
 public class SupplyRemainingComponentImpl implements SupplyRemainingComponent {
-
     private final SupplyRepository supplyRepository;
     private final SupplyTypeRepository supplyTypeRepository;
     private final Converter<Supply, SupplyModel> converter;
@@ -22,15 +23,15 @@ public class SupplyRemainingComponentImpl implements SupplyRemainingComponent {
     @Override
     public List<SupplyModel> getRemainingSupply() {
         List<SupplyModel> list = new ArrayList<>();
-        list.add(getSupplyModelOfType(SupplyTypeEnum.WATER));
-        list.add(getSupplyModelOfType(SupplyTypeEnum.MILK));
-        list.add(getSupplyModelOfType(SupplyTypeEnum.COFFEE));
-        list.add(getSupplyModelOfType(SupplyTypeEnum.CUP));
-        return  list;
+        list.add(getSupplyModelOfType(WATER));
+        list.add(getSupplyModelOfType(MILK));
+        list.add(getSupplyModelOfType(COFFEE));
+        list.add(getSupplyModelOfType(CUP));
+        return list;
     }
 
     private SupplyModel getSupplyModelOfType(SupplyTypeEnum supplyTypeEnum) {
         return converter.convert(supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyTypeEnum).get()).get()); //продумать опшинл
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyTypeEnum).get()).get());
     }
 }

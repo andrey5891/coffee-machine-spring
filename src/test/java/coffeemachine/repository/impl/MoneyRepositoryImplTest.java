@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static coffeemachine.enumeration.MoneyLocationEnum.BANK;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MoneyRepositoryImplTest {
-
     private static final Long BANK_MONEY_LOCATION_ID = 1L;
     private static final Long SOME_AMOUNT_1200 = 1200L;
     private static final Long SOME_AMOUNT_1800 = 1800L;
@@ -21,7 +19,10 @@ public class MoneyRepositoryImplTest {
 
     private final static MoneyRepository moneyRepository = new MoneyRepositoryImpl(
             new ArrayList<Money>(
-                    Arrays.asList(Money.builder().moneyLocationId(BANK_MONEY_LOCATION_ID).amount(SOME_AMOUNT_1500).build())
+                    Arrays.asList(Money.builder()
+                            .moneyLocationId(BANK_MONEY_LOCATION_ID)
+                            .amount(SOME_AMOUNT_1500)
+                            .build())
             ));
 
     private static Money createdMoney;

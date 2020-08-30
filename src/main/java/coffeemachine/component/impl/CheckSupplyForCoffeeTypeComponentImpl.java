@@ -2,10 +2,11 @@ package coffeemachine.component.impl;
 
 import coffeemachine.component.CheckSupplyForCoffeeTypeComponent;
 import coffeemachine.enumeration.CoffeeVariantEnum;
-import coffeemachine.enumeration.SupplyTypeEnum;
 import coffeemachine.repository.SupplyRepository;
 import coffeemachine.repository.SupplyTypeRepository;
 import lombok.RequiredArgsConstructor;
+
+import static coffeemachine.enumeration.SupplyTypeEnum.*;
 
 @RequiredArgsConstructor
 public class CheckSupplyForCoffeeTypeComponentImpl implements CheckSupplyForCoffeeTypeComponent {
@@ -14,10 +15,25 @@ public class CheckSupplyForCoffeeTypeComponentImpl implements CheckSupplyForCoff
 
     @Override
     public String checkAvailableSupplyAndGetMessage(CoffeeVariantEnum coffeeVariant) {
-        Integer availableWaterVolume = supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.WATER).get()).get().getAmount();
-        Integer availableMilkVolume = supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.MILK).get()).get().getAmount();
-        Integer availableCoffeeWeight = supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.COFFEE).get()).get().getAmount();
-        Integer availableCupNumber = supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.CUP).get()).get().getAmount();
+        Integer availableWaterVolume = supplyRepository.getLastBySupplyTypeId(
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER).get())
+                .get()
+                .getAmount();
+
+        Integer availableMilkVolume = supplyRepository.getLastBySupplyTypeId(
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).get())
+                .get()
+                .getAmount();
+
+        Integer availableCoffeeWeight = supplyRepository.getLastBySupplyTypeId(
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).get())
+                .get()
+                .getAmount();
+
+        Integer availableCupNumber = supplyRepository.getLastBySupplyTypeId(
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).get())
+                .get()
+                .getAmount();
 
         String resultMessage = "Sorry, not enough ";
 

@@ -7,12 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static coffeemachine.enumeration.SupplyTypeEnum.MILK;
-import static coffeemachine.enumeration.SupplyTypeEnum.WATER;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SupplyRepositoryImplTest {
-
     private final SupplyRepository supplyRepository = new SupplyRepositoryImpl();
 
     private static Supply createdSupply;
@@ -50,17 +47,17 @@ class SupplyRepositoryImplTest {
     @Test
     void createSupplyWithoutAmount() {
         assertThrows(NoSupplyAmountInParametersException.class,
-                () -> supplyRepository.create(Supply.builder().supplyTypeId(WATER_SUPPLY_TYPE_ID).build()));
+                () -> supplyRepository.create(Supply.builder()
+                        .supplyTypeId(WATER_SUPPLY_TYPE_ID)
+                        .build()));
     }
 
     @Test
     void getLastBySupplyType() {
-        createdSupply = supplyRepository.create(
-                Supply
-                        .builder()
-                        .supplyTypeId(MILK_SUPPLY_TYPE_ID)
-                        .amount(SOME_AMOUNT_1900)
-                        .build()
+        createdSupply = supplyRepository.create(Supply.builder()
+                .supplyTypeId(MILK_SUPPLY_TYPE_ID)
+                .amount(SOME_AMOUNT_1900)
+                .build()
         );
 
         lastSupplyBySupplyType = supplyRepository.getLastBySupplyTypeId(MILK_SUPPLY_TYPE_ID);
@@ -71,13 +68,12 @@ class SupplyRepositoryImplTest {
 
     @Test
     void getLastBySupplyTypeWhenTwo() {
-        createdSupply = supplyRepository.create(
-                Supply
-                        .builder()
-                        .supplyTypeId(WATER_SUPPLY_TYPE_ID)
-                        .amount(SOME_AMOUNT_500)
-                        .build()
+        createdSupply = supplyRepository.create(Supply.builder()
+                .supplyTypeId(WATER_SUPPLY_TYPE_ID)
+                .amount(SOME_AMOUNT_500)
+                .build()
         );
+
         lastSupplyBySupplyType = supplyRepository.getLastBySupplyTypeId(WATER_SUPPLY_TYPE_ID);
 
         assertTrue(lastSupplyBySupplyType.isPresent());

@@ -13,7 +13,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class FillCoffeeMachineOfSupplyComponentImpl implements FillCoffeeMachineOfSupplyComponent {
-
     private final SupplyRepository supplyRepository;
     private final SupplyTypeRepository supplyTypeRepository;
     private final SupplyRemainingComponent supplyRemainingComponent;
@@ -24,10 +23,12 @@ public class FillCoffeeMachineOfSupplyComponentImpl implements FillCoffeeMachine
             Long id = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.values()[i]).get();
             Integer amount = supplyRepository.getLastBySupplyTypeId(id).get().getAmount();
             SupplyModel supplyModel = supplyModelList.get(i);
-            Supply supply = Supply.builder().supplyTypeId(supplyModel.getSupplyTypeId()).amount(amount + supplyModel.getAmount()).build();
+            Supply supply = Supply.builder()
+                    .supplyTypeId(supplyModel.getSupplyTypeId())
+                    .amount(amount + supplyModel.getAmount())
+                    .build();
             supplyRepository.create(supply);
         }
-
         return supplyRemainingComponent.getRemainingSupply();
     }
 }

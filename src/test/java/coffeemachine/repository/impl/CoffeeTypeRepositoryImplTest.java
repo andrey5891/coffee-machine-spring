@@ -10,10 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CoffeeTypeRepositoryImplTest {
-
     private static final CoffeeTypeRepository coffeeTypeRepository = new CoffeeTypeRepositoryImpl();
     private static final CoffeeType espressoCoffeeTypeTemplate = CoffeeType.builder()
-            .name("ESPRESSO").waterAmount(250L).milkAmount(0L).coffeeBeanAmount(16L).price(4L).build();
+            .name("ESPRESSO")
+            .waterAmount(250L)
+            .milkAmount(0L)
+            .coffeeBeanAmount(16L)
+            .price(4L)
+            .build();
 
     private static Optional<CoffeeType> coffeeTypeByName;
 
@@ -26,7 +30,7 @@ public class CoffeeTypeRepositoryImplTest {
 
         assertTrue(coffeeTypeByName.isPresent());
         espressoCoffeeTypeTemplate.setId(coffeeTypeByName.get().getId());
-        assertEquals(espressoCoffeeTypeTemplate,coffeeTypeByName.get());
+        assertEquals(espressoCoffeeTypeTemplate, coffeeTypeByName.get());
     }
 
     @Test

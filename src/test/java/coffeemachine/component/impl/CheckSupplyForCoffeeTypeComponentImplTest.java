@@ -1,8 +1,6 @@
 package coffeemachine.component.impl;
 
-
 import coffeemachine.entity.Supply;
-import coffeemachine.enumeration.CoffeeVariantEnum;
 import coffeemachine.repository.SupplyRepository;
 import coffeemachine.repository.SupplyTypeRepository;
 import org.junit.jupiter.api.Test;
@@ -13,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static coffeemachine.enumeration.CoffeeVariantEnum.CAPPUCCINO;
 import static coffeemachine.enumeration.SupplyTypeEnum.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -20,6 +19,12 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CheckSupplyForCoffeeTypeComponentImplTest {
+    @Mock
+    private SupplyRepository supplyRepository;
+    @Mock
+    private SupplyTypeRepository supplyTypeRepository;
+    @InjectMocks
+    private CheckSupplyForCoffeeTypeComponentImpl checkSupplyForCoffeeTypeComponentImpl;
 
     private static final long WATER_SUPPLY_TYPE_ID = 1L;
     private static final long MILK_SUPPLY_TYPE_ID = 2L;
@@ -50,15 +55,6 @@ public class CheckSupplyForCoffeeTypeComponentImplTest {
     private final String NOT_ENOUGH_MILK = "Sorry, not enough milk!";
 
 
-    @Mock
-    private SupplyRepository supplyRepository;
-
-    @Mock
-    private SupplyTypeRepository supplyTypeRepository;
-
-    @InjectMocks
-    private CheckSupplyForCoffeeTypeComponentImpl checkSupplyForCoffeeTypeComponentImpl;
-
     @Test
     public void mocksNotNull() {
         assertNotNull(supplyRepository);
@@ -67,34 +63,61 @@ public class CheckSupplyForCoffeeTypeComponentImplTest {
 
     @Test
     public void checkAvailableSupplyAndGetMessageWhenOkTest() {
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER)).thenReturn(Optional.of(WATER_SUPPLY_TYPE_ID));
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK)).thenReturn(Optional.of(MILK_SUPPLY_TYPE_ID));
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE)).thenReturn(Optional.of(COFFEE_SUPPLY_TYPE_ID));
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP)).thenReturn(Optional.of(CUP_SUPPLY_TYPE_ID));
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER))
+                .thenReturn(Optional.of(WATER_SUPPLY_TYPE_ID));
 
-        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER).get())).thenReturn(Optional.of(waterSupply));
-        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).get())).thenReturn(Optional.of(milkSupply));
-        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).get())).thenReturn(Optional.of(coffeeSupply));
-        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).get())).thenReturn(Optional.of(cupSupply));
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK))
+                .thenReturn(Optional.of(MILK_SUPPLY_TYPE_ID));
 
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE))
+                .thenReturn(Optional.of(COFFEE_SUPPLY_TYPE_ID));
 
-        assertEquals(OK, checkSupplyForCoffeeTypeComponentImpl.checkAvailableSupplyAndGetMessage(CoffeeVariantEnum.CAPPUCCINO));
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP))
+                .thenReturn(Optional.of(CUP_SUPPLY_TYPE_ID));
+
+        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER).get()))
+                .thenReturn(Optional.of(waterSupply));
+
+        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).get()))
+                .thenReturn(Optional.of(milkSupply));
+
+        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).get()))
+                .thenReturn(Optional.of(coffeeSupply));
+
+        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).get()))
+                .thenReturn(Optional.of(cupSupply));
+
+        assertEquals(OK, checkSupplyForCoffeeTypeComponentImpl.checkAvailableSupplyAndGetMessage(CAPPUCCINO));
     }
 
     @Test
     public void checkAvailableSupplyAndGetMessageWhenNotEnoughMilkTest() {
         milkSupply.setAmount(50);
 
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER)).thenReturn(Optional.of(WATER_SUPPLY_TYPE_ID));
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK)).thenReturn(Optional.of(MILK_SUPPLY_TYPE_ID));
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE)).thenReturn(Optional.of(COFFEE_SUPPLY_TYPE_ID));
-        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP)).thenReturn(Optional.of(CUP_SUPPLY_TYPE_ID));
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER))
+                .thenReturn(Optional.of(WATER_SUPPLY_TYPE_ID));
 
-        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER).get())).thenReturn(Optional.of(waterSupply));
-        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).get())).thenReturn(Optional.of(milkSupply));
-        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).get())).thenReturn(Optional.of(coffeeSupply));
-        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).get())).thenReturn(Optional.of(cupSupply));
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK))
+                .thenReturn(Optional.of(MILK_SUPPLY_TYPE_ID));
 
-        assertEquals(NOT_ENOUGH_MILK, checkSupplyForCoffeeTypeComponentImpl.checkAvailableSupplyAndGetMessage(CoffeeVariantEnum.CAPPUCCINO));
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE))
+                .thenReturn(Optional.of(COFFEE_SUPPLY_TYPE_ID));
+
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP))
+                .thenReturn(Optional.of(CUP_SUPPLY_TYPE_ID));
+
+        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER).get()))
+                .thenReturn(Optional.of(waterSupply));
+
+        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).get()))
+                .thenReturn(Optional.of(milkSupply));
+
+        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).get()))
+                .thenReturn(Optional.of(coffeeSupply));
+
+        when(supplyRepository.getLastBySupplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).get()))
+                .thenReturn(Optional.of(cupSupply));
+
+        assertEquals(NOT_ENOUGH_MILK, checkSupplyForCoffeeTypeComponentImpl.checkAvailableSupplyAndGetMessage(CAPPUCCINO));
     }
 }

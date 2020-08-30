@@ -1,17 +1,13 @@
 package coffeemachine.repository.impl;
 
 import coffeemachine.entity.Money;
-import coffeemachine.enumeration.MoneyLocationEnum;
 import coffeemachine.exception.NoMoneyAmountInParametersException;
-import coffeemachine.repository.MoneyLocationRepository;
 import coffeemachine.repository.MoneyRepository;
 
 import java.util.*;
 
 public class MoneyRepositoryImpl implements MoneyRepository {
-
     private Long currentId = 1L;
-
     private Map<Long, Money> moneyMap;
 
     public MoneyRepositoryImpl() {
@@ -35,7 +31,6 @@ public class MoneyRepositoryImpl implements MoneyRepository {
         }
         money.setId(getNextIdValue());
         moneyMap.put(money.getId(), money);
-
         return money;
     }
 
@@ -55,7 +50,11 @@ public class MoneyRepositoryImpl implements MoneyRepository {
     private void fillDbSimulationByBeginValues() {
         this.moneyMap = new HashMap<>(
                 Map.of(
-                        currentId, Money.builder().id(getNextIdValue()).moneyLocationId(1L).amount(1500L).build()
+                        currentId, Money.builder()
+                                .id(getNextIdValue())
+                                .moneyLocationId(1L)
+                                .amount(1500L)
+                                .build()
                 ));
     }
 }

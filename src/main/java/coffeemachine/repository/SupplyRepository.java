@@ -1,7 +1,6 @@
 package coffeemachine.repository;
 
 import coffeemachine.entity.Supply;
-import coffeemachine.enumeration.SupplyTypeEnum;
 import coffeemachine.exception.NoSupplyAmountInParametersException;
 
 import java.util.Optional;
@@ -9,7 +8,7 @@ import java.util.Optional;
 public interface SupplyRepository {
     /**
      * @param supply - supply DTO for creating entry without ID
-     * @return  supply DTO of created entry with ID
+     * @return supply DTO of created entry with ID
      * @throws NoSupplyAmountInParametersException
      */
     Supply create(Supply supply);
