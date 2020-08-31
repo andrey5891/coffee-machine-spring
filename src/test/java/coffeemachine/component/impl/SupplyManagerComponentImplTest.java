@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class FillCoffeeMachineOfSupplyComponentImplTest {
+public class SupplyManagerComponentImplTest {
     @Mock
     private SupplyRepository supplyRepository;
     @Mock
@@ -28,7 +28,7 @@ public class FillCoffeeMachineOfSupplyComponentImplTest {
     @Mock
     private SupplyRemainingComponent supplyRemainingComponent;
     @InjectMocks
-    private FillCoffeeMachineOfSupplyComponentImpl fillCoffeeMachineOfSupplyComponentImpl;
+    private SupplyManagerComponentImpl fillCoffeeMachineOfSupplyComponentImpl;
 
     private static final Long WATER_SUPPLY_TYPE_ID = 1L;
     private static final Long MILK_SUPPLY_TYPE_ID = 2L;
