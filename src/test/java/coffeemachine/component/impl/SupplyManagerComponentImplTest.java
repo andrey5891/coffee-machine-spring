@@ -2,6 +2,7 @@ package coffeemachine.component.impl;
 
 import coffeemachine.component.SupplyRemainingComponent;
 import coffeemachine.entity.Supply;
+import coffeemachine.enumeration.CoffeeVariantEnum;
 import coffeemachine.model.SupplyModel;
 import coffeemachine.repository.SupplyRepository;
 import coffeemachine.repository.SupplyTypeRepository;
@@ -30,6 +31,8 @@ public class SupplyManagerComponentImplTest {
     @InjectMocks
     private SupplyManagerComponentImpl fillCoffeeMachineOfSupplyComponentImpl;
 
+    private static final CoffeeVariantEnum coffeeVariantEnumForBuy = CoffeeVariantEnum.CAPPUCCINO;
+
     private static final Long WATER_SUPPLY_TYPE_ID = 1L;
     private static final Long MILK_SUPPLY_TYPE_ID = 2L;
     private static final Long COFFEE_SUPPLY_TYPE_ID = 3L;
@@ -41,7 +44,7 @@ public class SupplyManagerComponentImplTest {
     private static final Integer CUP_AMOUNT = 10;
 
     private static final Integer WATER_AMOUNT_BEFORE_FILL = 300;
-    private static final Integer MILK_AMOUNT_BEFORE_FILL = 270;
+    private static final Integer MILK_AMOUNT_BEFORE_FILL = 200;
     private static final Integer COFFEE_AMOUNT_BEFORE_FILL = 15;
     private static final Integer CUP_AMOUNT_BEFORE_FILL = 7;
 
@@ -49,6 +52,11 @@ public class SupplyManagerComponentImplTest {
     private static final Integer MILK_AMOUNT_AFTER_FILL = MILK_AMOUNT + MILK_AMOUNT_BEFORE_FILL;
     private static final Integer COFFEE_AMOUNT_AFTER_FILL = COFFEE_AMOUNT + COFFEE_AMOUNT_BEFORE_FILL;
     private static final Integer CUP_AMOUNT_AFTER_FILL = CUP_AMOUNT + CUP_AMOUNT_BEFORE_FILL;
+
+    private static final Integer WATER_AMOUNT_AFTER_BUY = WATER_AMOUNT_AFTER_FILL - coffeeVariantEnumForBuy.getWaterVolume();
+    private static final Integer MILK_AMOUNT_AFTER_BUY = MILK_AMOUNT_AFTER_FILL - coffeeVariantEnumForBuy.getMilkVolume();
+    private static final Integer COFFEE_AMOUNT_AFTER_BUY = COFFEE_AMOUNT_AFTER_FILL - coffeeVariantEnumForBuy.getCoffeeWeight();
+    private static final Integer CUP_AMOUNT_AFTER_BUY = CUP_AMOUNT_AFTER_FILL - 1;
 
     public static final SupplyModel WATER_SUPPLY_MODEL = SupplyModel.builder()
             .supplyTypeId(WATER_SUPPLY_TYPE_ID)
@@ -97,11 +105,38 @@ public class SupplyManagerComponentImplTest {
             .amount(CUP_AMOUNT_AFTER_FILL)
             .build();
 
+    public static final SupplyModel WATER_SUPPLY_MODEL_AFTER_BUY = SupplyModel.builder()
+            .supplyTypeId(WATER_SUPPLY_TYPE_ID)
+            .amount(WATER_AMOUNT_AFTER_BUY)
+            .build();
+
+    public static final SupplyModel MILK_SUPPLY_MODEL_AFTER_BUY = SupplyModel.builder()
+            .supplyTypeId(MILK_SUPPLY_TYPE_ID)
+            .amount(MILK_AMOUNT_AFTER_BUY)
+            .build();
+
+    public static final SupplyModel COFFEE_SUPPLY_MODEL_AFTER_BUY = SupplyModel.builder()
+            .supplyTypeId(COFFEE_SUPPLY_TYPE_ID)
+            .amount(COFFEE_AMOUNT_AFTER_BUY)
+            .build();
+
+    public static final SupplyModel CUP_SUPPLY_MODEL_AFTER_BUY = SupplyModel.builder()
+            .supplyTypeId(CUP_SUPPLY_TYPE_ID)
+            .amount(CUP_AMOUNT_AFTER_BUY)
+            .build();
+
     private static final List<SupplyModel> supplyModelListAfterFilling = List.of(
             WATER_SUPPLY_MODEL_WITH_ADD,
             MILK_SUPPLY_MODEL_WITH_ADD,
             COFFEE_SUPPLY_MODEL_WITH_ADD,
             CUP_SUPPLY_MODEL_WITH_ADD
+    );
+
+    private static final List<SupplyModel> supplyModelListAfterBuy = List.of(
+            WATER_SUPPLY_MODEL_AFTER_BUY,
+            MILK_SUPPLY_MODEL_AFTER_BUY,
+            COFFEE_SUPPLY_MODEL_AFTER_BUY,
+            CUP_SUPPLY_MODEL_AFTER_BUY
     );
 
     Supply waterSupplyAfterFill = Supply.builder()
@@ -142,6 +177,26 @@ public class SupplyManagerComponentImplTest {
     Supply cupSupplyBeforeFill = Supply.builder()
             .supplyTypeId(CUP_SUPPLY_TYPE_ID)
             .amount(CUP_AMOUNT_BEFORE_FILL)
+            .build();
+
+    Supply waterSupplyAfterBuy = Supply.builder()
+            .supplyTypeId(WATER_SUPPLY_TYPE_ID)
+            .amount(WATER_AMOUNT_AFTER_BUY)
+            .build();
+
+    Supply milkSupplyAfterBuy = Supply.builder()
+            .supplyTypeId(MILK_SUPPLY_TYPE_ID)
+            .amount(MILK_AMOUNT_AFTER_BUY)
+            .build();
+
+    Supply coffeeSupplyAfterBuy = Supply.builder()
+            .supplyTypeId(COFFEE_SUPPLY_TYPE_ID)
+            .amount(COFFEE_AMOUNT_AFTER_BUY)
+            .build();
+
+    Supply cupSupplyAfterBuy = Supply.builder()
+            .supplyTypeId(CUP_SUPPLY_TYPE_ID)
+            .amount(CUP_AMOUNT_AFTER_BUY)
             .build();
 
     @Test
@@ -194,5 +249,51 @@ public class SupplyManagerComponentImplTest {
         List<SupplyModel> filledSupplyModelList = fillCoffeeMachineOfSupplyComponentImpl.fillAllSupply(supplyModelList);
 
         assertArrayEquals(supplyModelListAfterFilling.toArray(), filledSupplyModelList.toArray());
+    }
+
+    @Test
+    public void reduceAllSupplyTest() {
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER))
+                .thenReturn(Optional.of(WATER_SUPPLY_TYPE_ID));
+
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK))
+                .thenReturn(Optional.of(MILK_SUPPLY_TYPE_ID));
+
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE))
+                .thenReturn(Optional.of(COFFEE_SUPPLY_TYPE_ID));
+
+        when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP))
+                .thenReturn(Optional.of(CUP_SUPPLY_TYPE_ID));
+
+        when(supplyRepository.getLastBySupplyTypeId(WATER_SUPPLY_TYPE_ID))
+                .thenReturn(Optional.of(waterSupplyAfterFill));
+
+        when(supplyRepository.getLastBySupplyTypeId(MILK_SUPPLY_TYPE_ID))
+                .thenReturn(Optional.of(milkSupplyAfterFill));
+
+        when(supplyRepository.getLastBySupplyTypeId(COFFEE_SUPPLY_TYPE_ID))
+                .thenReturn(Optional.of(coffeeSupplyAfterFill));
+
+        when(supplyRepository.getLastBySupplyTypeId(CUP_SUPPLY_TYPE_ID))
+                .thenReturn(Optional.of(cupSupplyAfterFill));
+
+        when(supplyRepository.create(waterSupplyAfterBuy))
+                .thenReturn(waterSupplyAfterBuy);
+
+        when(supplyRepository.create(milkSupplyAfterBuy))
+                .thenReturn(milkSupplyAfterBuy);
+
+        when(supplyRepository.create(coffeeSupplyAfterBuy))
+                .thenReturn(coffeeSupplyAfterBuy);
+
+        when(supplyRepository.create(cupSupplyAfterBuy))
+                .thenReturn(cupSupplyAfterBuy);
+
+        when(supplyRemainingComponent.getRemainingSupply())
+                .thenReturn(supplyModelListAfterBuy);
+
+        List<SupplyModel> supplyModelAfterBuyList = fillCoffeeMachineOfSupplyComponentImpl.reduceAllSupply(coffeeVariantEnumForBuy);
+
+        assertArrayEquals(supplyModelListAfterBuy.toArray(), supplyModelAfterBuyList.toArray());
     }
 }

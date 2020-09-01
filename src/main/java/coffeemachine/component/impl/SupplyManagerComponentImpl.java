@@ -60,17 +60,17 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
 
                 SupplyModel.builder()
                         .supplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).orElseThrow())
-                        .amount(coffeeVariantEnum.getWaterVolume())
+                        .amount(coffeeVariantEnum.getMilkVolume())
                         .build(),
 
                 SupplyModel.builder()
                         .supplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).orElseThrow())
-                        .amount(coffeeVariantEnum.getWaterVolume())
+                        .amount(coffeeVariantEnum.getCoffeeWeight())
                         .build(),
 
                 SupplyModel.builder()
                         .supplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).orElseThrow())
-                        .amount(coffeeVariantEnum.getWaterVolume())
+                        .amount(1)
                         .build()
         );
     }
