@@ -2,6 +2,8 @@ package coffeemachine.component.impl;
 
 import coffeemachine.component.CheckSupplyForCoffeeTypeComponent;
 import coffeemachine.enumeration.CoffeeVariantEnum;
+import coffeemachine.exception.NoSuchMoneyLocationTypeException;
+import coffeemachine.exception.NoSuchSupplyTypeException;
 import coffeemachine.repository.SupplyRepository;
 import coffeemachine.repository.SupplyTypeRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,22 +18,22 @@ public class CheckSupplyForCoffeeTypeComponentImpl implements CheckSupplyForCoff
     @Override
     public String checkAvailableSupplyAndGetMessage(CoffeeVariantEnum coffeeVariant) {
         Integer availableWaterVolume = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER).orElseThrow())
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER).orElseThrow(NoSuchSupplyTypeException::new))
                 .orElseThrow()
                 .getAmount();
 
         Integer availableMilkVolume = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).orElseThrow())
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).orElseThrow(NoSuchSupplyTypeException::new))
                 .orElseThrow()
                 .getAmount();
 
         Integer availableCoffeeWeight = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).orElseThrow())
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).orElseThrow(NoSuchSupplyTypeException::new))
                 .orElseThrow()
                 .getAmount();
 
         Integer availableCupNumber = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).orElseThrow())
+                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).orElseThrow(NoSuchSupplyTypeException::new))
                 .orElseThrow()
                 .getAmount();
 

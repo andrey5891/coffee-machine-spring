@@ -4,6 +4,8 @@ import coffeemachine.component.SupplyRemainingComponent;
 import coffeemachine.converter.Converter;
 import coffeemachine.entity.Supply;
 import coffeemachine.enumeration.SupplyTypeEnum;
+import coffeemachine.exception.NoSuchSupplyException;
+import coffeemachine.exception.NoSuchSupplyTypeException;
 import coffeemachine.model.SupplyModel;
 import coffeemachine.repository.SupplyRepository;
 import coffeemachine.repository.SupplyTypeRepository;
@@ -33,9 +35,9 @@ public class SupplyRemainingComponentImpl implements SupplyRemainingComponent {
     private SupplyModel getSupplyModelOfType(SupplyTypeEnum supplyTypeEnum) {
         Long supplyTypeId = supplyTypeRepository
                 .getSupplyTypeIdBySupplyTypeEnum(supplyTypeEnum)
-                .orElseThrow();
+                .orElseThrow(NoSuchSupplyTypeException::new);
 
-        Supply supply = supplyRepository.getLastBySupplyTypeId(supplyTypeId).orElseThrow();
+        Supply supply = supplyRepository.getLastBySupplyTypeId(supplyTypeId).orElseThrow(NoSuchSupplyException::new);
 
         return converter.convert(supply);
     }

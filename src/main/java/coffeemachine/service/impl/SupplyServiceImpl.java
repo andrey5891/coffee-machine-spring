@@ -4,6 +4,7 @@ import coffeemachine.component.MoneyReceivingComponent;
 import coffeemachine.component.SupplyManagerComponent;
 import coffeemachine.component.SupplyRemainingComponent;
 import coffeemachine.converter.Converter;
+import coffeemachine.dto.MoneyDto;
 import coffeemachine.dto.SupplyListDto;
 import coffeemachine.model.SupplyModel;
 import coffeemachine.service.SupplyService;
@@ -32,5 +33,15 @@ public class SupplyServiceImpl implements SupplyService {
 
         supplyListDto.setAvailAbleCash(moneyReceivingComponent.getAvailableCashAmount().intValue());
         return supplyListDto;
+    }
+
+    @Override
+    public MoneyDto takeCashFromBank() {
+        MoneyDto moneyDto = MoneyDto.builder()
+                .cashAmount(moneyReceivingComponent.getAvailableCashAmount())
+                .build();
+
+        moneyReceivingComponent.setAvailAbleCashAMountToZero();
+        return moneyDto;
     }
 }
