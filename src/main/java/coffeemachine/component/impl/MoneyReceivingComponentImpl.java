@@ -20,9 +20,9 @@ public class MoneyReceivingComponentImpl implements MoneyReceivingComponent {
     }
 
     @Override
-    public Money setAvailAbleCashAMountToZero() {
+    public void setAvailAbleCashAMountToZero() {
         Long moneyInBankLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK).orElseThrow();
-        return moneyRepository.create(Money.builder()
+        moneyRepository.create(Money.builder()
                 .moneyLocationId(moneyInBankLocationId)
                 .amount(0L)
                 .build());

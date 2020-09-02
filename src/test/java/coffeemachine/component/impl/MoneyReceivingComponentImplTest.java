@@ -14,7 +14,7 @@ import java.util.Optional;
 import static coffeemachine.enumeration.MoneyLocationEnum.BANK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MoneyReceivingComponentImplTest {
@@ -66,6 +66,8 @@ public class MoneyReceivingComponentImplTest {
         when(moneyRepository.create(moneyInBankAfterSettingZero))
                 .thenReturn(moneyInBankAfterSettingZero);
 
-        assertEquals(ZERO_VALUE, moneyReceivingComponentImpl.setAvailAbleCashAMountToZero().getAmount());
+        moneyReceivingComponentImpl.setAvailAbleCashAMountToZero();
+
+        verify(moneyRepository, times(1)).create(moneyInBankAfterSettingZero);
     }
 }

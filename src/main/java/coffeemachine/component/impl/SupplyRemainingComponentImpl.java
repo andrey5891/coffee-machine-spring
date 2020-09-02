@@ -31,7 +31,12 @@ public class SupplyRemainingComponentImpl implements SupplyRemainingComponent {
     }
 
     private SupplyModel getSupplyModelOfType(SupplyTypeEnum supplyTypeEnum) {
-        return converter.convert(supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyTypeEnum).orElseThrow()).orElseThrow());
+        Long supplyTypeId = supplyTypeRepository
+                .getSupplyTypeIdBySupplyTypeEnum(supplyTypeEnum)
+                .orElseThrow();
+
+        Supply supply = supplyRepository.getLastBySupplyTypeId(supplyTypeId).orElseThrow();
+
+        return converter.convert(supply);
     }
 }

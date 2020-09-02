@@ -5,6 +5,7 @@ import coffeemachine.component.SupplyRemainingComponent;
 import coffeemachine.entity.Supply;
 import coffeemachine.enumeration.CoffeeVariantEnum;
 import coffeemachine.enumeration.SupplyTypeEnum;
+import coffeemachine.exception.NoSuchSupplyTypeException;
 import coffeemachine.model.SupplyModel;
 import coffeemachine.repository.SupplyRepository;
 import coffeemachine.repository.SupplyTypeRepository;
@@ -22,9 +23,14 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
 
     @Override
     public List<SupplyModel> fillAllSupply(List<SupplyModel> supplyModelList) {
-        for (int i = 0; i < 4; i++) {
-            Long id = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.values()[i]).orElseThrow();
-            Integer amount = supplyRepository.getLastBySupplyTypeId(id).orElseThrow().getAmount();
+        for (int i = 0; i < supplyModelList.size(); i++) {
+            Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.values()[i]).orElseThrow();
+
+            Integer amount = supplyRepository
+                    .getLastBySupplyTypeId(supplyTypeId)
+                    .orElseThrow(NoSuchSupplyTypeException::new)
+                    .getAmount();
+
             SupplyModel supplyModel = supplyModelList.get(i);
             Supply supply = Supply.builder()
                     .supplyTypeId(supplyModel.getSupplyTypeId())
@@ -38,7 +44,7 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
     @Override
     public List<SupplyModel> reduceAllSupply(CoffeeVariantEnum coffeeVariantEnum) {
         List<SupplyModel> supplyModelList = getSupplyModelListFromCoffeeVariant(coffeeVariantEnum);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < supplyModelList.size(); i++) {
             Long id = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.values()[i]).orElseThrow();
             Integer amount = supplyRepository.getLastBySupplyTypeId(id).orElseThrow().getAmount();
             SupplyModel supplyModel = supplyModelList.get(i);
