@@ -226,7 +226,7 @@ public class SupplyManagerComponentImplTest {
 
         fillCoffeeMachineOfSupplyComponentImpl.reduceAllSupply(coffeeVariantEnumForBuy);
 
-        verify(supplyTypeRepository, times(8)).getSupplyTypeIdBySupplyTypeEnum(any());
+        verify(supplyTypeRepository, times(4)).getSupplyTypeIdBySupplyTypeEnum(any());
         verify(supplyRepository, times(4)).getLastBySupplyTypeId(any());
         verify(supplyRepository, times(4)).create(any());
     }
