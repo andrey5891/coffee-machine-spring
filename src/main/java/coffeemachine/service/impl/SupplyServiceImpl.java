@@ -28,8 +28,10 @@ public class SupplyServiceImpl implements SupplyService {
 
     @Override
     public SupplyListDto getRemainingSupplyWithCash() {
+
+        List<SupplyModel> remainingSupply = supplyRemainingComponent.getRemainingSupply();
         SupplyListDto supplyListDto = supplyModelListToSupplyListDtoConverter
-                .convert(supplyRemainingComponent.getRemainingSupply());
+                .convert(remainingSupply);
 
         supplyListDto.setAvailAbleCash(moneyReceivingComponent.getAvailableCashAmount().intValue());
         return supplyListDto;

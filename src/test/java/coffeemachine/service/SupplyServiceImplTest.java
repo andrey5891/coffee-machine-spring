@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static coffeemachine.enumeration.SupplyTypeEnum.*;
@@ -24,7 +25,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class SupplyServiceImplTest {
-
     @Mock
     private SupplyManagerComponent supplyManagerComponent;
     @Mock
@@ -39,11 +39,12 @@ public class SupplyServiceImplTest {
     @InjectMocks
     private SupplyServiceImpl supplyServiceImpl;
 
-    private final Long AVAILABLE_AMOUNT_CASH = 350L;
-    private final Integer WATER_VOLUME = 400;
-    private final Integer MILK_VOLUME = 200;
-    private final Integer COFFEE_VOLUME = 50;
-    private final Integer CUP_VOLUME = 5;
+
+    private static final Long AVAILABLE_AMOUNT_CASH = 350L;
+    private static final Integer WATER_VOLUME = 400;
+    private static final Integer MILK_VOLUME = 200;
+    private static final Integer COFFEE_VOLUME = 50;
+    private static final Integer CUP_VOLUME = 5;
 
 
     private final SupplyListDto supplyListDtoForFill = SupplyListDto.builder()
@@ -61,13 +62,17 @@ public class SupplyServiceImplTest {
             .availAbleCash(AVAILABLE_AMOUNT_CASH.intValue())
             .build();
 
-    private final List<SupplyModel> supplyModelList = List.of(
-            SupplyModel.builder().supplyTypeEnum(WATER).amount(WATER_VOLUME).build(),
-            SupplyModel.builder().supplyTypeEnum(MILK).amount(MILK_VOLUME).build(),
-            SupplyModel.builder().supplyTypeEnum(COFFEE).amount(COFFEE_VOLUME).build(),
-            SupplyModel.builder().supplyTypeEnum(CUP).amount(CUP_VOLUME).build()
-    );
 
+    private static final List<SupplyModel> supplyModelList;
+
+    static {
+        supplyModelList = new ArrayList<>();
+        supplyModelList.add(SupplyModel.builder().supplyTypeEnum(WATER).amount(WATER_VOLUME).build());
+        supplyModelList.add(SupplyModel.builder().supplyTypeEnum(MILK).amount(MILK_VOLUME).build());
+        supplyModelList.add(SupplyModel.builder().supplyTypeEnum(COFFEE).amount(COFFEE_VOLUME).build());
+        supplyModelList.add(SupplyModel.builder().supplyTypeEnum(CUP).amount(CUP_VOLUME).build());
+
+    }
     MoneyDto moneyDto = MoneyDto.builder()
             .cashAmount(AVAILABLE_AMOUNT_CASH)
             .build();
@@ -83,9 +88,9 @@ public class SupplyServiceImplTest {
 
     @Test
     public void getRemainingSupplyWithCashTest() {
-        when(supplyModelListToSupplyListDtoConverter.convert(supplyModelList)).thenReturn(supplyListDtoForFill);
-        when(moneyReceivingComponent.getAvailableCashAmount()).thenReturn(AVAILABLE_AMOUNT_CASH);
         when(supplyRemainingComponent.getRemainingSupply()).thenReturn(supplyModelList);
+        when(supplyModelListToSupplyListDtoConverter.convert(supplyModelList)).thenReturn(supplyListDtoForFill); //todo периодически возвращает null
+        when(moneyReceivingComponent.getAvailableCashAmount()).thenReturn(AVAILABLE_AMOUNT_CASH);
 
         SupplyListDto supplyListDtoFromService = supplyServiceImpl.getRemainingSupplyWithCash();
 

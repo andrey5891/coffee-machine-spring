@@ -8,6 +8,5 @@ import lombok.Data;
 @Builder
 public class SupplyModel {
     private SupplyTypeEnum supplyTypeEnum;
-
     private Integer amount;
 }

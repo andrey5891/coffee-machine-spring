@@ -24,11 +24,17 @@ public class BuyCoffeeServiceImpl implements BuyCoffeeService {
     public BuyCoffeeMessageDto makeCoffeeIfAvailableAndGetMessage(CoffeeTypeDto coffeeTypeDto) {
         CoffeeVariantEnum coffeeVariant = converter.convert(coffeeTypeDto);
         String message = checkSupplyForCoffeeTypeComponent.checkAvailableSupplyAndGetMessage(coffeeVariant);
-        if (message.equals("OK") & moneyAcceptanceComponent.isMoneyReceived(coffeeVariant)) {
+        if (message.equals("OK")) {
             message = "I have enough resources, making you a coffee!";
-            moneyAcceptanceComponent.moveMoneyFromReceiverToBank();
-            supplyManagerComponent.reduceAllSupply(coffeeVariant);
+
+            if (!moneyAcceptanceComponent.isMoneyReceived(coffeeVariant)) {
+                message = "You put not enough money!";
+            } else {
+                moneyAcceptanceComponent.moveMoneyFromReceiverToBank();
+                supplyManagerComponent.reduceAllSupply(coffeeVariant);
+            }
         }
+
         return BuyCoffeeMessageDto.builder().message(message).build();
     }
 }

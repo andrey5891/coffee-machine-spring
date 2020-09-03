@@ -54,6 +54,12 @@ public class MoneyRepositoryImpl implements MoneyRepository {
                                 .id(getNextIdValue())
                                 .moneyLocationId(1L)
                                 .amount(1500L)
+                                .build(),
+
+                        currentId, Money.builder()
+                                .id(getNextIdValue())
+                                .moneyLocationId(2L)
+                                .amount(6L)
                                 .build()
                 ));
     }

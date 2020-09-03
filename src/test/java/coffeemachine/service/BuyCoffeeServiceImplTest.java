@@ -56,7 +56,7 @@ public class BuyCoffeeServiceImplTest {
     @Test
     public void makeCoffeesWithoutNeededMilkTest() {
         when(checkSupplyForCoffeeTypeComponent.checkAvailableSupplyAndGetMessage(ESPRESSO)).thenReturn(NOT_ENOUGH_BEANS);
-        when(moneyAcceptanceComponent.isMoneyReceived(ESPRESSO)).thenReturn(TRUE);
+        //when(moneyAcceptanceComponent.isMoneyReceived(ESPRESSO)).thenReturn(TRUE);
         when(converter.convert(ESPRESSO_DTO)).thenReturn(ESPRESSO);
 
         Assertions.assertEquals(failBuyCoffeeMessageDto, buyCoffeeServiceImpl.makeCoffeeIfAvailableAndGetMessage(ESPRESSO_DTO));

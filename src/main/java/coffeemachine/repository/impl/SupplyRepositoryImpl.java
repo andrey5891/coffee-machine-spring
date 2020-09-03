@@ -57,7 +57,7 @@ public class SupplyRepositoryImpl implements SupplyRepository {
                         currentId, Supply.builder()
                                 .id(getNextIdValue())
                                 .supplyTypeId(3L)
-                                .amount(150)
+                                .amount(18)
                                 .build(),
 
                         currentId, Supply.builder()

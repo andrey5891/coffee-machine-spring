@@ -1,8 +1,8 @@
 package coffeemachine.enumeration;
 
 public enum CoffeeVariantEnum {
-    ESPRESSO(250, 0, 16, 4, "1"),
-    LATTE(350, 75, 20, 7, "2"),
+    ESPRESSO(250, 0, 16, 14, "1"),
+    LATTE(350, 75, 20, 5, "2"),
     CAPPUCCINO(200, 100, 12, 6, "3");
 
     private final int waterVolume;
