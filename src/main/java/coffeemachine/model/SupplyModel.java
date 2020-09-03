@@ -1,14 +1,13 @@
 package coffeemachine.model;
 
+import coffeemachine.enumeration.SupplyTypeEnum;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
 public class SupplyModel {
-    private Long id;
-
-    private Long supplyTypeId;
+    private SupplyTypeEnum supplyTypeEnum;
 
     private Integer amount;
 }

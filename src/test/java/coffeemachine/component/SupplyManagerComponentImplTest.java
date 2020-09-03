@@ -55,22 +55,22 @@ public class SupplyManagerComponentImplTest {
     private static final Integer CUP_AMOUNT_AFTER_BUY = CUP_AMOUNT_AFTER_FILL - 1;
 
     public static final SupplyModel WATER_SUPPLY_MODEL = SupplyModel.builder()
-            .supplyTypeId(WATER_SUPPLY_TYPE_ID)
+            .supplyTypeEnum(WATER)
             .amount(WATER_AMOUNT)
             .build();
 
     public static final SupplyModel MILK_SUPPLY_MODEL = SupplyModel.builder()
-            .supplyTypeId(MILK_SUPPLY_TYPE_ID)
+            .supplyTypeEnum(MILK)
             .amount(MILK_AMOUNT)
             .build();
 
     public static final SupplyModel COFFEE_SUPPLY_MODEL = SupplyModel.builder()
-            .supplyTypeId(COFFEE_SUPPLY_TYPE_ID)
+            .supplyTypeEnum(COFFEE)
             .amount(COFFEE_AMOUNT)
             .build();
 
     public static final SupplyModel CUP_SUPPLY_MODEL = SupplyModel.builder()
-            .supplyTypeId(CUP_SUPPLY_TYPE_ID)
+            .supplyTypeEnum(CUP)
             .amount(CUP_AMOUNT)
             .build();
 

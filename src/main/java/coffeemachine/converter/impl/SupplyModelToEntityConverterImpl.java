@@ -8,8 +8,6 @@ public class SupplyModelToEntityConverterImpl implements Converter<SupplyModel, 
     @Override
     public Supply convert(SupplyModel source) {
         return Supply.builder()
-                .id(source.getId())
-                .supplyTypeId(source.getSupplyTypeId())
                 .amount(source.getAmount())
                 .build();
     }

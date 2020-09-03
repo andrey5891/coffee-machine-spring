@@ -17,7 +17,6 @@ import java.util.Optional;
 
 import static coffeemachine.enumeration.SupplyTypeEnum.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -62,22 +61,22 @@ public class SupplyRemainingComponentImplTest {
             .build();
 
     public static final SupplyModel WATER_SUPPLY_MODEL = SupplyModel.builder()
-            .supplyTypeId(WATER_SUPPLY_TYPE_ID)
+            .supplyTypeEnum(WATER)
             .amount(AMOUNT)
             .build();
 
     public static final SupplyModel MILK_SUPPLY_MODEL = SupplyModel.builder()
-            .supplyTypeId(MILK_SUPPLY_TYPE_ID)
+            .supplyTypeEnum(MILK)
             .amount(AMOUNT)
             .build();
 
     public static final SupplyModel COFFEE_SUPPLY_MODEL = SupplyModel.builder()
-            .supplyTypeId(COFFEE_SUPPLY_TYPE_ID)
+            .supplyTypeEnum(COFFEE)
             .amount(AMOUNT)
             .build();
 
     public static final SupplyModel CUP_SUPPLY_MODEL = SupplyModel.builder()
-            .supplyTypeId(CUP_SUPPLY_TYPE_ID)
+            .supplyTypeEnum(CUP)
             .amount(AMOUNT)
             .build();
 
@@ -87,13 +86,6 @@ public class SupplyRemainingComponentImplTest {
             COFFEE_SUPPLY_MODEL,
             CUP_SUPPLY_MODEL
     );
-
-    @Test
-    public void mocksNotNull() {
-        assertNotNull(supplyRepository);
-        assertNotNull(converter);
-        assertNotNull(supplyRemainingService);
-    }
 
     @Test
     public void getSupplyRemaining() {

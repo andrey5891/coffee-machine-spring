@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class MoneyDto {
-    private Long cashAmount;
+public class BuyCoffeeMessageDto {
+    private String message;
 }

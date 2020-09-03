@@ -3,6 +3,7 @@ package coffeemachine.service.impl;
 import coffeemachine.component.CheckSupplyForCoffeeTypeComponent;
 import coffeemachine.component.MoneyAcceptanceComponent;
 import coffeemachine.component.SupplyManagerComponent;
+import coffeemachine.dto.BuyCoffeeMessageDto;
 import coffeemachine.enumeration.CoffeeVariantEnum;
 import coffeemachine.service.BuyCoffeeService;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +16,13 @@ public class BuyCoffeeServiceImpl implements BuyCoffeeService {
     private final SupplyManagerComponent supplyManagerComponent;
 
     @Override
-    public String makeCoffeeIfAvailableAndGetMessage(CoffeeVariantEnum coffeeVariant) {
+    public BuyCoffeeMessageDto makeCoffeeIfAvailableAndGetMessage(CoffeeVariantEnum coffeeVariant) {
         String message = checkSupplyForCoffeeTypeComponent.checkAvailableSupplyAndGetMessage(coffeeVariant);
         if (message.equals("OK") & moneyAcceptanceComponent.isMoneyReceived(coffeeVariant)) {
             message = "I have enough resources, making you a coffee!";
             moneyAcceptanceComponent.moveMoneyFromReceiverToBank();
             supplyManagerComponent.reduceAllSupply(coffeeVariant);
         }
-        return message;
+        return BuyCoffeeMessageDto.builder().message(message).build();
     }
 }

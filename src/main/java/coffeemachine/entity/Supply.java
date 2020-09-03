@@ -8,6 +8,8 @@ import lombok.Data;
 public class Supply {
     private Long id;
 
+    private Long code;
+
     private Long supplyTypeId;
 
     private Integer amount;

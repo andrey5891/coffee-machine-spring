@@ -6,28 +6,29 @@ import coffeemachine.model.SupplyModel;
 
 import java.util.List;
 
+import static coffeemachine.enumeration.SupplyTypeEnum.*;
+
 public class SupplyDtoToModelConverterImpl implements Converter<SupplyListDto, List<SupplyModel>> {
     @Override
     public List<SupplyModel> convert(SupplyListDto source) {
         return List.of(
-
                 SupplyModel.builder()
-                        .supplyTypeId(1L)
+                        .supplyTypeEnum(WATER)
                         .amount(source.getAvailableWaterVolume())
                         .build(),
 
                 SupplyModel.builder()
-                        .supplyTypeId(2L)
+                        .supplyTypeEnum(MILK)
                         .amount(source.getAvailableWaterVolume())
                         .build(),
 
                 SupplyModel.builder()
-                        .supplyTypeId(3L)
+                        .supplyTypeEnum(COFFEE)
                         .amount(source.getAvailableWaterVolume())
                         .build(),
 
                 SupplyModel.builder()
-                        .supplyTypeId(4L)
+                        .supplyTypeEnum(CUP)
                         .amount(source.getAvailableWaterVolume())
                         .build()
         );

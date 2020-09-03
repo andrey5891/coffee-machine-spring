@@ -1,7 +1,8 @@
 package coffeemachine.service;
 
+import coffeemachine.dto.BuyCoffeeMessageDto;
 import coffeemachine.enumeration.CoffeeVariantEnum;
 
 public interface BuyCoffeeService {
-    String makeCoffeeIfAvailableAndGetMessage(CoffeeVariantEnum coffeeVariant);
+    BuyCoffeeMessageDto makeCoffeeIfAvailableAndGetMessage(CoffeeVariantEnum coffeeVariant);
 }

@@ -6,6 +6,7 @@ import coffeemachine.component.SupplyRemainingComponent;
 import coffeemachine.converter.Converter;
 import coffeemachine.dto.MoneyDto;
 import coffeemachine.dto.SupplyListDto;
+import coffeemachine.enumeration.SupplyTypeEnum;
 import coffeemachine.model.SupplyModel;
 import coffeemachine.service.impl.SupplyServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -18,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
+import static coffeemachine.enumeration.SupplyTypeEnum.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -60,10 +62,10 @@ public class SupplyServiceImplTest {
             .build();
 
     private final List<SupplyModel> supplyModelList = List.of(
-            SupplyModel.builder().supplyTypeId(1L).amount(WATER_VOLUME).build(),
-            SupplyModel.builder().supplyTypeId(2L).amount(MILK_VOLUME).build(),
-            SupplyModel.builder().supplyTypeId(3L).amount(COFFEE_VOLUME).build(),
-            SupplyModel.builder().supplyTypeId(4L).amount(CUP_VOLUME).build()
+            SupplyModel.builder().supplyTypeEnum(WATER).amount(WATER_VOLUME).build(),
+            SupplyModel.builder().supplyTypeEnum(MILK).amount(MILK_VOLUME).build(),
+            SupplyModel.builder().supplyTypeEnum(COFFEE).amount(COFFEE_VOLUME).build(),
+            SupplyModel.builder().supplyTypeEnum(CUP).amount(CUP_VOLUME).build()
     );
 
     MoneyDto moneyDto = MoneyDto.builder()

@@ -1,10 +1,8 @@
 package coffeemachine.component.impl;
 
 import coffeemachine.component.SupplyManagerComponent;
-import coffeemachine.component.SupplyRemainingComponent;
 import coffeemachine.entity.Supply;
 import coffeemachine.enumeration.CoffeeVariantEnum;
-import coffeemachine.enumeration.SupplyTypeEnum;
 import coffeemachine.exception.NoSuchSupplyException;
 import coffeemachine.exception.NoSuchSupplyTypeException;
 import coffeemachine.model.SupplyModel;
@@ -20,11 +18,12 @@ import static coffeemachine.enumeration.SupplyTypeEnum.*;
 public class SupplyManagerComponentImpl implements SupplyManagerComponent {
     private final SupplyRepository supplyRepository;
     private final SupplyTypeRepository supplyTypeRepository;
+    private final Integer ONE_CUP_AMOUNT = 1;
 
     @Override
     public void fillAllSupply(List<SupplyModel> supplyModelList) {
-        for (int i = 0; i < supplyModelList.size(); i++) {
-            Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.values()[i])
+        for (SupplyModel supplyModel : supplyModelList) {
+            Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyModel.getSupplyTypeEnum())
                     .orElseThrow(NoSuchSupplyTypeException::new);
 
             Integer amount = supplyRepository
@@ -32,11 +31,11 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
                     .orElseThrow(NoSuchSupplyTypeException::new)
                     .getAmount();
 
-            SupplyModel supplyModel = supplyModelList.get(i);
             Supply supply = Supply.builder()
-                    .supplyTypeId(supplyModel.getSupplyTypeId())
+                    .supplyTypeId(supplyTypeId)
                     .amount(amount + supplyModel.getAmount())
                     .build();
+
             supplyRepository.create(supply);
         }
     }
@@ -44,16 +43,15 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
     @Override
     public void reduceAllSupply(CoffeeVariantEnum coffeeVariantEnum) {
         List<SupplyModel> supplyModelList = getSupplyModelListFromCoffeeVariant(coffeeVariantEnum);
-        for (int i = 0; i < supplyModelList.size(); i++) {
-            Long id = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.values()[i])
+        for (SupplyModel supplyModel : supplyModelList) {
+            Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyModel.getSupplyTypeEnum())
                     .orElseThrow(NoSuchSupplyTypeException::new);
 
-            Integer amount = supplyRepository.getLastBySupplyTypeId(id)
+            Integer amount = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                     .orElseThrow(NoSuchSupplyException::new).getAmount();
 
-            SupplyModel supplyModel = supplyModelList.get(i);
             Supply supply = Supply.builder()
-                    .supplyTypeId(supplyModel.getSupplyTypeId())
+                    .supplyTypeId(supplyTypeId)
                     .amount(amount - supplyModel.getAmount())
                     .build();
             supplyRepository.create(supply);
@@ -63,27 +61,23 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
     private List<SupplyModel> getSupplyModelListFromCoffeeVariant(CoffeeVariantEnum coffeeVariantEnum) {
         return List.of(
                 SupplyModel.builder()
-                        .supplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER)
-                                .orElseThrow(NoSuchSupplyTypeException::new))
+                        .supplyTypeEnum(WATER)
                         .amount(coffeeVariantEnum.getWaterVolume())
                         .build(),
 
                 SupplyModel.builder()
-                        .supplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK)
-                                .orElseThrow(NoSuchSupplyTypeException::new))
+                        .supplyTypeEnum(MILK)
                         .amount(coffeeVariantEnum.getMilkVolume())
                         .build(),
 
                 SupplyModel.builder()
-                        .supplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE)
-                                .orElseThrow(NoSuchSupplyTypeException::new))
+                        .supplyTypeEnum(COFFEE)
                         .amount(coffeeVariantEnum.getCoffeeWeight())
                         .build(),
 
                 SupplyModel.builder()
-                        .supplyTypeId(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP)
-                                .orElseThrow(NoSuchSupplyTypeException::new))
-                        .amount(1)
+                        .supplyTypeEnum(CUP)
+                        .amount(ONE_CUP_AMOUNT)
                         .build()
         );
     }
