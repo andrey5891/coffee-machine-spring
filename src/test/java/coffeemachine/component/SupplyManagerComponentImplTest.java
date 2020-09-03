@@ -1,6 +1,6 @@
-package coffeemachine.component.impl;
+package coffeemachine.component;
 
-import coffeemachine.component.SupplyRemainingComponent;
+import coffeemachine.component.impl.SupplyManagerComponentImpl;
 import coffeemachine.entity.Supply;
 import coffeemachine.enumeration.CoffeeVariantEnum;
 import coffeemachine.model.SupplyModel;
@@ -16,9 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static coffeemachine.enumeration.SupplyTypeEnum.*;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class SupplyManagerComponentImplTest {
@@ -26,8 +24,6 @@ public class SupplyManagerComponentImplTest {
     private SupplyRepository supplyRepository;
     @Mock
     private SupplyTypeRepository supplyTypeRepository;
-    @Mock
-    private SupplyRemainingComponent supplyRemainingComponent;
     @InjectMocks
     private SupplyManagerComponentImpl fillCoffeeMachineOfSupplyComponentImpl;
 
@@ -83,60 +79,6 @@ public class SupplyManagerComponentImplTest {
             MILK_SUPPLY_MODEL,
             COFFEE_SUPPLY_MODEL,
             CUP_SUPPLY_MODEL
-    );
-
-    public static final SupplyModel WATER_SUPPLY_MODEL_WITH_ADD = SupplyModel.builder()
-            .supplyTypeId(WATER_SUPPLY_TYPE_ID)
-            .amount(WATER_AMOUNT_AFTER_FILL)
-            .build();
-
-    public static final SupplyModel MILK_SUPPLY_MODEL_WITH_ADD = SupplyModel.builder()
-            .supplyTypeId(MILK_SUPPLY_TYPE_ID)
-            .amount(MILK_AMOUNT_AFTER_FILL)
-            .build();
-
-    public static final SupplyModel COFFEE_SUPPLY_MODEL_WITH_ADD = SupplyModel.builder()
-            .supplyTypeId(COFFEE_SUPPLY_TYPE_ID)
-            .amount(COFFEE_AMOUNT_AFTER_FILL)
-            .build();
-
-    public static final SupplyModel CUP_SUPPLY_MODEL_WITH_ADD = SupplyModel.builder()
-            .supplyTypeId(CUP_SUPPLY_TYPE_ID)
-            .amount(CUP_AMOUNT_AFTER_FILL)
-            .build();
-
-    public static final SupplyModel WATER_SUPPLY_MODEL_AFTER_BUY = SupplyModel.builder()
-            .supplyTypeId(WATER_SUPPLY_TYPE_ID)
-            .amount(WATER_AMOUNT_AFTER_BUY)
-            .build();
-
-    public static final SupplyModel MILK_SUPPLY_MODEL_AFTER_BUY = SupplyModel.builder()
-            .supplyTypeId(MILK_SUPPLY_TYPE_ID)
-            .amount(MILK_AMOUNT_AFTER_BUY)
-            .build();
-
-    public static final SupplyModel COFFEE_SUPPLY_MODEL_AFTER_BUY = SupplyModel.builder()
-            .supplyTypeId(COFFEE_SUPPLY_TYPE_ID)
-            .amount(COFFEE_AMOUNT_AFTER_BUY)
-            .build();
-
-    public static final SupplyModel CUP_SUPPLY_MODEL_AFTER_BUY = SupplyModel.builder()
-            .supplyTypeId(CUP_SUPPLY_TYPE_ID)
-            .amount(CUP_AMOUNT_AFTER_BUY)
-            .build();
-
-    private static final List<SupplyModel> supplyModelListAfterFilling = List.of(
-            WATER_SUPPLY_MODEL_WITH_ADD,
-            MILK_SUPPLY_MODEL_WITH_ADD,
-            COFFEE_SUPPLY_MODEL_WITH_ADD,
-            CUP_SUPPLY_MODEL_WITH_ADD
-    );
-
-    private static final List<SupplyModel> supplyModelListAfterBuy = List.of(
-            WATER_SUPPLY_MODEL_AFTER_BUY,
-            MILK_SUPPLY_MODEL_AFTER_BUY,
-            COFFEE_SUPPLY_MODEL_AFTER_BUY,
-            CUP_SUPPLY_MODEL_AFTER_BUY
     );
 
     Supply waterSupplyAfterFill = Supply.builder()
@@ -200,12 +142,6 @@ public class SupplyManagerComponentImplTest {
             .build();
 
     @Test
-    public void mocksNotNull() {
-        assertNotNull(supplyRepository);
-        assertNotNull(supplyRemainingComponent);
-    }
-
-    @Test
     public void fillAllSupplyTest() {
         when(supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER))
                 .thenReturn(Optional.of(WATER_SUPPLY_TYPE_ID));
@@ -243,12 +179,11 @@ public class SupplyManagerComponentImplTest {
         when(supplyRepository.create(cupSupplyAfterFill))
                 .thenReturn(cupSupplyAfterFill);
 
-        when(supplyRemainingComponent.getRemainingSupply())
-                .thenReturn(supplyModelListAfterFilling);
+        fillCoffeeMachineOfSupplyComponentImpl.fillAllSupply(supplyModelList);
 
-        List<SupplyModel> filledSupplyModelList = fillCoffeeMachineOfSupplyComponentImpl.fillAllSupply(supplyModelList);
-
-        assertArrayEquals(supplyModelListAfterFilling.toArray(), filledSupplyModelList.toArray());
+        verify(supplyTypeRepository, times(4)).getSupplyTypeIdBySupplyTypeEnum(any());
+        verify(supplyRepository, times(4)).getLastBySupplyTypeId(any());
+        verify(supplyRepository, times(4)).create(any());
     }
 
     @Test
@@ -289,11 +224,10 @@ public class SupplyManagerComponentImplTest {
         when(supplyRepository.create(cupSupplyAfterBuy))
                 .thenReturn(cupSupplyAfterBuy);
 
-        when(supplyRemainingComponent.getRemainingSupply())
-                .thenReturn(supplyModelListAfterBuy);
+        fillCoffeeMachineOfSupplyComponentImpl.reduceAllSupply(coffeeVariantEnumForBuy);
 
-        List<SupplyModel> supplyModelAfterBuyList = fillCoffeeMachineOfSupplyComponentImpl.reduceAllSupply(coffeeVariantEnumForBuy);
-
-        assertArrayEquals(supplyModelListAfterBuy.toArray(), supplyModelAfterBuyList.toArray());
+        verify(supplyTypeRepository, times(8)).getSupplyTypeIdBySupplyTypeEnum(any());
+        verify(supplyRepository, times(4)).getLastBySupplyTypeId(any());
+        verify(supplyRepository, times(4)).create(any());
     }
 }

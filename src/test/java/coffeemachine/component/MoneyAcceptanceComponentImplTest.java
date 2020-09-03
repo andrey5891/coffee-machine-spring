@@ -1,5 +1,6 @@
-package coffeemachine.component.impl;
+package coffeemachine.component;
 
+import coffeemachine.component.impl.MoneyAcceptanceComponentImpl;
 import coffeemachine.entity.Money;
 import coffeemachine.repository.MoneyLocationRepository;
 import coffeemachine.repository.MoneyRepository;
@@ -14,15 +15,15 @@ import java.util.Optional;
 import static coffeemachine.enumeration.CoffeeVariantEnum.CAPPUCCINO;
 import static coffeemachine.enumeration.MoneyLocationEnum.BANK;
 import static coffeemachine.enumeration.MoneyLocationEnum.RECEIVER;
+import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MoneyAcceptanceComponentImplTest {
     @Mock
     private MoneyRepository moneyRepository;
-
     @Mock
     private MoneyLocationRepository moneyLocationRepository;
 
@@ -49,12 +50,6 @@ public class MoneyAcceptanceComponentImplTest {
             .build();
 
     @Test
-    public void mocksNotNull() {
-        assertNotNull(moneyRepository);
-        assertNotNull(moneyLocationRepository);
-    }
-
-    @Test
     public void moneyInReceiverTest() {
         when(moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(RECEIVER))
                 .thenReturn(Optional.of(RECEIVER_MONEY_LOCATION_ID));
@@ -62,7 +57,7 @@ public class MoneyAcceptanceComponentImplTest {
         when(moneyRepository.getLastByMoneyLocationId(RECEIVER_MONEY_LOCATION_ID))
                 .thenReturn(Optional.of(moneyInReceiver));
 
-        assertEquals(true, moneyAcceptanceComponentImpl.isMoneyReceived(CAPPUCCINO));
+        assertEquals(TRUE, moneyAcceptanceComponentImpl.isMoneyReceived(CAPPUCCINO));
     }
 
     @Test
@@ -82,7 +77,10 @@ public class MoneyAcceptanceComponentImplTest {
         when(moneyRepository.create(moneyForCreateMock))
                 .thenReturn(moneyForCreateMock);
 
-        assertEquals(MONEY_AMOUNT_IN_BANK + MONEY_AMOUNT_IN_RECEIVER,
-                moneyAcceptanceComponentImpl.moveMoneyFromReceiverToBank().getAmount());
+        moneyAcceptanceComponentImpl.moveMoneyFromReceiverToBank();
+
+        verify(moneyLocationRepository, times(2)).getMoneyLocationIdByMoneyLocationEnum(any());
+        verify(moneyRepository, times(2)).getLastByMoneyLocationId(any());
+        verify(moneyRepository, times(2)).create(any());
     }
 }

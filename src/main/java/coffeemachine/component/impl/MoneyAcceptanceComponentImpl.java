@@ -17,6 +17,7 @@ import static coffeemachine.enumeration.MoneyLocationEnum.*;
 public class MoneyAcceptanceComponentImpl implements MoneyAcceptanceComponent {
     private final MoneyRepository moneyRepository;
     private final MoneyLocationRepository moneyLocationRepository;
+    private final Long ZERO_CASH = 0L;
 
     @Override
     public Boolean isMoneyReceived(CoffeeVariantEnum coffeeVariant) {
@@ -33,7 +34,7 @@ public class MoneyAcceptanceComponentImpl implements MoneyAcceptanceComponent {
     }
 
     @Override
-    public Money moveMoneyFromReceiverToBank() {
+    public void moveMoneyFromReceiverToBank() {
         Long moneyInReceiverLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(RECEIVER)
                 .orElseThrow(NoSuchMoneyLocationTypeException::new);
 
@@ -46,9 +47,14 @@ public class MoneyAcceptanceComponentImpl implements MoneyAcceptanceComponent {
         Long amountInBank = moneyRepository.getLastByMoneyLocationId(moneyInBankLocationId)
                 .orElseThrow(NoSuchMoneyException::new).getAmount();
 
-        return moneyRepository.create(Money.builder()
+        moneyRepository.create(Money.builder()
                 .moneyLocationId(moneyInBankLocationId)
                 .amount(amountInBank + amountInReceiver)
+                .build());
+
+        moneyRepository.create(Money.builder()
+                .moneyLocationId(moneyInReceiverLocationId)
+                .amount(ZERO_CASH)
                 .build());
     }
 }

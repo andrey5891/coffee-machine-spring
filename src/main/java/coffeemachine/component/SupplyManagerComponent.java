@@ -6,7 +6,7 @@ import coffeemachine.model.SupplyModel;
 import java.util.List;
 
 public interface SupplyManagerComponent {
-    List<SupplyModel> fillAllSupply(List<SupplyModel> supplyModelList);
+    void fillAllSupply(List<SupplyModel> supplyModelList);
 
-    List<SupplyModel> reduceAllSupply(CoffeeVariantEnum coffeeVariantEnum);
+    void reduceAllSupply(CoffeeVariantEnum coffeeVariantEnum);
 }

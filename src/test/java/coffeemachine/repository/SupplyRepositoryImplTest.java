@@ -1,8 +1,8 @@
-package coffeemachine.repository.impl;
+package coffeemachine.repository;
 
 import coffeemachine.entity.Supply;
 import coffeemachine.exception.NoSupplyAmountInParametersException;
-import coffeemachine.repository.SupplyRepository;
+import coffeemachine.repository.impl.SupplyRepositoryImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

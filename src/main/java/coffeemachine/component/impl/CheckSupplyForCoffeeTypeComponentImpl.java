@@ -2,7 +2,6 @@ package coffeemachine.component.impl;
 
 import coffeemachine.component.CheckSupplyForCoffeeTypeComponent;
 import coffeemachine.enumeration.CoffeeVariantEnum;
-import coffeemachine.exception.NoSuchMoneyLocationTypeException;
 import coffeemachine.exception.NoSuchSupplyTypeException;
 import coffeemachine.repository.SupplyRepository;
 import coffeemachine.repository.SupplyTypeRepository;

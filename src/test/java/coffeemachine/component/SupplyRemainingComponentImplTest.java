@@ -1,5 +1,6 @@
-package coffeemachine.component.impl;
+package coffeemachine.component;
 
+import coffeemachine.component.impl.SupplyRemainingComponentImpl;
 import coffeemachine.converter.Converter;
 import coffeemachine.entity.Supply;
 import coffeemachine.model.SupplyModel;

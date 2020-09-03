@@ -1,7 +1,7 @@
-package coffeemachine.repository.impl;
+package coffeemachine.repository;
 
 import coffeemachine.entity.CoffeeType;
-import coffeemachine.repository.CoffeeTypeRepository;
+import coffeemachine.repository.impl.CoffeeTypeRepositoryImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

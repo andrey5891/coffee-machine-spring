@@ -17,7 +17,7 @@ public class BuyCoffeeServiceImpl implements BuyCoffeeService {
     @Override
     public String makeCoffeeIfAvailableAndGetMessage(CoffeeVariantEnum coffeeVariant) {
         String message = checkSupplyForCoffeeTypeComponent.checkAvailableSupplyAndGetMessage(coffeeVariant);
-        if (message.equals("OK") && moneyAcceptanceComponent.isMoneyReceived(coffeeVariant)) {
+        if (message.equals("OK") & moneyAcceptanceComponent.isMoneyReceived(coffeeVariant)) {
             message = "I have enough resources, making you a coffee!";
             moneyAcceptanceComponent.moveMoneyFromReceiverToBank();
             supplyManagerComponent.reduceAllSupply(coffeeVariant);

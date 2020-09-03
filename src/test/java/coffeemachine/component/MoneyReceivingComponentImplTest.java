@@ -1,5 +1,6 @@
-package coffeemachine.component.impl;
+package coffeemachine.component;
 
+import coffeemachine.component.impl.MoneyReceivingComponentImpl;
 import coffeemachine.entity.Money;
 import coffeemachine.repository.MoneyLocationRepository;
 import coffeemachine.repository.MoneyRepository;

@@ -20,10 +20,9 @@ import static coffeemachine.enumeration.SupplyTypeEnum.*;
 public class SupplyManagerComponentImpl implements SupplyManagerComponent {
     private final SupplyRepository supplyRepository;
     private final SupplyTypeRepository supplyTypeRepository;
-    private final SupplyRemainingComponent supplyRemainingComponent;
 
     @Override
-    public List<SupplyModel> fillAllSupply(List<SupplyModel> supplyModelList) {
+    public void fillAllSupply(List<SupplyModel> supplyModelList) {
         for (int i = 0; i < supplyModelList.size(); i++) {
             Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.values()[i])
                     .orElseThrow(NoSuchSupplyTypeException::new);
@@ -40,11 +39,10 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
                     .build();
             supplyRepository.create(supply);
         }
-        return supplyRemainingComponent.getRemainingSupply();
     }
 
     @Override
-    public List<SupplyModel> reduceAllSupply(CoffeeVariantEnum coffeeVariantEnum) {
+    public void reduceAllSupply(CoffeeVariantEnum coffeeVariantEnum) {
         List<SupplyModel> supplyModelList = getSupplyModelListFromCoffeeVariant(coffeeVariantEnum);
         for (int i = 0; i < supplyModelList.size(); i++) {
             Long id = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum.values()[i])
@@ -60,7 +58,6 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
                     .build();
             supplyRepository.create(supply);
         }
-        return supplyRemainingComponent.getRemainingSupply();
     }
 
     private List<SupplyModel> getSupplyModelListFromCoffeeVariant(CoffeeVariantEnum coffeeVariantEnum) {

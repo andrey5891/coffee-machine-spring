@@ -1,8 +1,8 @@
-package coffeemachine.repository.impl;
+package coffeemachine.repository;
 
 import coffeemachine.entity.Money;
 import coffeemachine.exception.NoMoneyAmountInParametersException;
-import coffeemachine.repository.MoneyRepository;
+import coffeemachine.repository.impl.MoneyRepositoryImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
