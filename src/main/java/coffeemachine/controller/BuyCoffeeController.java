@@ -4,20 +4,20 @@ import coffeemachine.dto.BuyCoffeeMessageDto;
 import coffeemachine.dto.CoffeeTypeDto;
 import coffeemachine.service.BuyCoffeeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
 public class BuyCoffeeController {
     private final BuyCoffeeService buyCoffeeService;
 
-    @PostMapping
+    @GetMapping("/buy")
     public BuyCoffeeMessageDto buyCoffee(@RequestBody CoffeeTypeDto coffeeTypeDto) {
         return buyCoffeeService.makeCoffeeIfAvailableAndGetMessage(coffeeTypeDto);
     }
-
-    @GetMapping
+    /*@GetMapping
     public String buyCoffee() {
         return "list";
     }
@@ -25,5 +25,5 @@ public class BuyCoffeeController {
     @GetMapping("/{id}")
     public String buyCoffee(@PathVariable Integer id) {
         return "list";
-    }
+    }*/
 }

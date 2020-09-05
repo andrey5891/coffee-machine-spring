@@ -1,4 +1,4 @@
-package coffeemachine.enumeration;
+package coffeemachine.exception;
 
 public class NoSuchSupplyTypeEnumByCodeException extends RuntimeException{
     public NoSuchSupplyTypeEnumByCodeException() {

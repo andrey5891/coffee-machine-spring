@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Optional;
 @Repository
 public class SupplyTypeRepositoryImpl implements SupplyTypeRepository {
-
     private Map<Long, SupplyType> supplyTypeMap = new HashMap<>(Map.of(
             1L, SupplyType.builder()
                     .id(1L)

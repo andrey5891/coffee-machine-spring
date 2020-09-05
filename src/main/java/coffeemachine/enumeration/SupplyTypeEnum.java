@@ -1,5 +1,7 @@
 package coffeemachine.enumeration;
 
+import coffeemachine.exception.NoSuchSupplyTypeEnumByCodeException;
+
 import java.util.Arrays;
 
 public enum SupplyTypeEnum {

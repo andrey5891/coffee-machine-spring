@@ -9,9 +9,10 @@ import coffeemachine.dto.SupplyListDto;
 import coffeemachine.model.SupplyModel;
 import coffeemachine.service.SupplyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 @RequiredArgsConstructor
 public class SupplyServiceImpl implements SupplyService {
     private final SupplyManagerComponent supplyManagerComponent;
