@@ -8,11 +8,13 @@ import coffeemachine.exception.NoSuchMoneyLocationTypeException;
 import coffeemachine.repository.MoneyLocationRepository;
 import coffeemachine.repository.MoneyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 import static coffeemachine.enumeration.MoneyLocationEnum.*;
 
+@Component
 @RequiredArgsConstructor
 public class MoneyAcceptanceComponentImpl implements MoneyAcceptanceComponent {
     private final MoneyRepository moneyRepository;

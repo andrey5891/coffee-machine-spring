@@ -3,11 +3,12 @@ package coffeemachine.repository.impl;
 import coffeemachine.entity.SupplyType;
 import coffeemachine.enumeration.SupplyTypeEnum;
 import coffeemachine.repository.SupplyTypeRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
+@Repository
 public class SupplyTypeRepositoryImpl implements SupplyTypeRepository {
 
     private Map<Long, SupplyType> supplyTypeMap = new HashMap<>(Map.of(

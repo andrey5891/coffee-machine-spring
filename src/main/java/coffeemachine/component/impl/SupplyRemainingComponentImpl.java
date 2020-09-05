@@ -10,12 +10,14 @@ import coffeemachine.model.SupplyModel;
 import coffeemachine.repository.SupplyRepository;
 import coffeemachine.repository.SupplyTypeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static coffeemachine.enumeration.SupplyTypeEnum.*;
 
+@Component
 @RequiredArgsConstructor
 public class SupplyRemainingComponentImpl implements SupplyRemainingComponent {
     private final SupplyRepository supplyRepository;

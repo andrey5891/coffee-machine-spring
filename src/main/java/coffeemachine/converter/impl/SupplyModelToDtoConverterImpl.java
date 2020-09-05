@@ -3,9 +3,10 @@ package coffeemachine.converter.impl;
 import coffeemachine.converter.Converter;
 import coffeemachine.dto.SupplyListDto;
 import coffeemachine.model.SupplyModel;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class SupplyModelToDtoConverterImpl implements Converter<List<SupplyModel>, SupplyListDto> {
     @Override
     public SupplyListDto convert(List<SupplyModel> source) {

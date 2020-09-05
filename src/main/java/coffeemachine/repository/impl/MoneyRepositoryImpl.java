@@ -3,9 +3,10 @@ package coffeemachine.repository.impl;
 import coffeemachine.entity.Money;
 import coffeemachine.exception.NoMoneyAmountInParametersException;
 import coffeemachine.repository.MoneyRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
-
+@Repository
 public class MoneyRepositoryImpl implements MoneyRepository {
     private Long currentId = 1L;
     private Map<Long, Money> moneyMap;

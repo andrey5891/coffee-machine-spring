@@ -3,11 +3,12 @@ package coffeemachine.repository.impl;
 import coffeemachine.entity.MoneyLocation;
 import coffeemachine.enumeration.MoneyLocationEnum;
 import coffeemachine.repository.MoneyLocationRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
+@Repository
 public class MoneyLocationRepositoryImpl implements MoneyLocationRepository {
 
     private Map<Long, MoneyLocation> moneyLocationMap = new HashMap<>(Map.of(

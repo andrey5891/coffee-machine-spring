@@ -3,12 +3,13 @@ package coffeemachine.repository.impl;
 import coffeemachine.entity.Supply;
 import coffeemachine.exception.NoSupplyAmountInParametersException;
 import coffeemachine.repository.SupplyRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
+@Repository
 public class SupplyRepositoryImpl implements SupplyRepository {
     private Long currentId = 1L;
     private Map<Long, Supply> supplyMap;

@@ -6,9 +6,11 @@ import coffeemachine.exception.NoSuchSupplyTypeException;
 import coffeemachine.repository.SupplyRepository;
 import coffeemachine.repository.SupplyTypeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import static coffeemachine.enumeration.SupplyTypeEnum.*;
 
+@Component
 @RequiredArgsConstructor
 public class CheckSupplyForCoffeeTypeComponentImpl implements CheckSupplyForCoffeeTypeComponent {
     private final SupplyRepository supplyRepository;

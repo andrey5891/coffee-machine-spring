@@ -11,7 +11,9 @@ import coffeemachine.entity.CoffeeType;
 import coffeemachine.enumeration.CoffeeVariantEnum;
 import coffeemachine.service.BuyCoffeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class BuyCoffeeServiceImpl implements BuyCoffeeService {
 
