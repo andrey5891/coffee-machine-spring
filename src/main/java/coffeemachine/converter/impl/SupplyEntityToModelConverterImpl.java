@@ -11,7 +11,6 @@ public class SupplyEntityToModelConverterImpl implements Converter<Supply, Suppl
     @Override
     public SupplyModel convert(Supply source) {
         return SupplyModel.builder()
-                //.supplyTypeEnum(SupplyTypeEnum.getSupplyTypeEnumByCode(source.getCode()))
                 .amount(source.getAmount())
                 .build();
     }

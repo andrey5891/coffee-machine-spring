@@ -41,6 +41,8 @@ public class SupplyRemainingComponentImpl implements SupplyRemainingComponent {
 
         Supply supply = supplyRepository.getLastBySupplyTypeId(supplyTypeId).orElseThrow(NoSuchSupplyException::new);
 
-        return converter.convert(supply);
+        SupplyModel supplyModel = converter.convert(supply);
+        supplyModel.setSupplyTypeEnum(supplyTypeEnum);
+        return supplyModel;
     }
 }

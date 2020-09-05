@@ -21,17 +21,17 @@ public class SupplyDtoToModelConverterImpl implements Converter<SupplyListDto, L
 
                 SupplyModel.builder()
                         .supplyTypeEnum(MILK)
-                        .amount(source.getAvailableWaterVolume())
+                        .amount(source.getAvailableMilkVolume())
                         .build(),
 
                 SupplyModel.builder()
                         .supplyTypeEnum(COFFEE)
-                        .amount(source.getAvailableWaterVolume())
+                        .amount(source.getAvailableCoffeeWeight())
                         .build(),
 
                 SupplyModel.builder()
                         .supplyTypeEnum(CUP)
-                        .amount(source.getAvailableWaterVolume())
+                        .amount(source.getAvailableCupNumber())
                         .build()
         );
     }
