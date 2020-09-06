@@ -3,6 +3,7 @@ package coffeemachine.repository.impl;
 import coffeemachine.entity.MoneyLocation;
 import coffeemachine.enumeration.MoneyLocationEnum;
 import coffeemachine.repository.MoneyLocationRepository;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
