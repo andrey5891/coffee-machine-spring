@@ -3,8 +3,10 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet author="andrey.korchenkov" id="202009062305_fill_money_location_table_by_bank">
-        <preConditions onFail="WARN">
+    <changeSet id="fill_money_location_table_by_bank"
+               author="andrey.korchenkov"
+               dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
             <tableExists tableName="money_location"/>
             <sqlCheck expectedResult="0">
                 SELECT COUNT(1)
@@ -12,19 +14,26 @@
                 WHERE name = 'BANK';
             </sqlCheck>
         </preConditions>
-        <insert tableName="money_location">
-            <column name="id" value="1"/>
-            <column name="name" value="BANK"/>
-        </insert>
+        <sql>
+            INSERT INTO money_location (name)
+            VALUES ('BANK');
+        </sql>
     </changeSet>
-    <changeSet author="andrey.korchenkov" id="fill_money_location_table_by_receiver">
-        <preConditions onFail="WARN">
+
+    <changeSet id="fill_money_location_table_by_receiver"
+               author="andrey.korchenkov"
+               dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
             <tableExists tableName="money_location"/>
-            <sqlCheck expectedResult="0">SELECT COUNT(1) FROM money_location WHERE name = 'RECEIVER'</sqlCheck>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM money_location
+                WHERE name = 'RECEIVER'
+            </sqlCheck>
         </preConditions>
-        <insert tableName="money_location">
-            <column name="id" value="2"/>
-            <column name="name" value="RECEIVER"/>
-        </insert>
+        <sql>
+            INSERT INTO money_location (name)
+            VALUES ('RECEIVER');
+        </sql>
     </changeSet>
 </databaseChangeLog>

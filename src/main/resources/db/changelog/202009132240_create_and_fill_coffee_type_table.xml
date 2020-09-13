@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="create_coffee_type_table"
+               author="andrey.korchenkov"
+               dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="coffee_type"/>
+            </not>
+        </preConditions>
+        <createTable tableName="coffee_type">
+            <column name="id"
+                    type="BIGINT"
+                    autoIncrement="true"
+                    startWith="1">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="water_amount" type="BIGINT"/>
+            <column name="milk_amount" type="BIGINT"/>
+            <column name="coffee_bean_amount" type="BIGINT"/>
+            <column name="price" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="fill_coffee_type_table"
+               author="andrey.korchenkov"
+               dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="money_location"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM coffee_type;
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO coffee_type (name, water_amount, milk_amount, coffee_bean_amount, price)
+            VALUES
+            ('ESPRESSO', 250, 0, 16, 14),
+            ('LATTE', 350, 75, 20, 5),
+            ('CAPPUCCINO', 200, 100, 12, 6);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

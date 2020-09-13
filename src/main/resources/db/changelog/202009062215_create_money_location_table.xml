@@ -3,17 +3,19 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet id="202009062215_create_money_location_table"
+    <changeSet id="create_money_location_table"
                author="andrey.korchenkov"
-               dbms="postgres">
-        <preConditions onFail="WARN">
+               dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="money_location"/>
             </not>
         </preConditions>
         <createTable tableName="money_location">
             <column name="id"
-                    type="BIGINT">
+                    type="BIGINT"
+                    autoIncrement="true"
+                    startWith="1">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>

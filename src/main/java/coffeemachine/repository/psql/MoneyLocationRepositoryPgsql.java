@@ -1,4 +1,4 @@
-package coffeemachine.repository.impl;
+package coffeemachine.repository.psql;
 
 import coffeemachine.entity.MoneyLocation;
 import coffeemachine.enumeration.MoneyLocationEnum;
