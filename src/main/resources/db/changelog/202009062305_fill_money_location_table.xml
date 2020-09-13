@@ -2,29 +2,29 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
-    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
-    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd ">
-    <changeSet  author="andrey.korchenkov"  id="202009062305_fill_money_location_table_by_bank">
-        <preConditions  onFail="WARN">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="andrey.korchenkov" id="202009062305_fill_money_location_table_by_bank">
+        <preConditions onFail="WARN">
             <tableExists tableName="money_location"/>
-            <sqlCheck expectedResult="0">SELECT COUNT(1) FROM money_location WHERE name = 'BANK'</sqlCheck>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM money_location
+                WHERE name = 'BANK';
+            </sqlCheck>
         </preConditions>
         <insert tableName="money_location">
-            <column  name="id"  value="1"/>
-            <column  name="name"  value="BANK"/>
+            <column name="id" value="1"/>
+            <column name="name" value="BANK"/>
         </insert>
     </changeSet>
-    <changeSet  author="andrey.korchenkov"  id="202009062305_fill_money_location_table_by_receiver">
-        <preConditions  onFail="WARN">
+    <changeSet author="andrey.korchenkov" id="fill_money_location_table_by_receiver">
+        <preConditions onFail="WARN">
             <tableExists tableName="money_location"/>
             <sqlCheck expectedResult="0">SELECT COUNT(1) FROM money_location WHERE name = 'RECEIVER'</sqlCheck>
         </preConditions>
         <insert tableName="money_location">
-            <column  name="id"  value="2"/>
-            <column  name="name"  value="RECEIVER"/>
+            <column name="id" value="2"/>
+            <column name="name" value="RECEIVER"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

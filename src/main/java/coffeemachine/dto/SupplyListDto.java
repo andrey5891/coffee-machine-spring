@@ -15,5 +15,5 @@ public class SupplyListDto {
 
     private Integer availableCupNumber;
 
-    private Integer availAbleCash;
+    private Integer availableCash;
 }

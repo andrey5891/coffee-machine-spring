@@ -6,7 +6,6 @@ import coffeemachine.component.SupplyRemainingComponent;
 import coffeemachine.converter.Converter;
 import coffeemachine.dto.MoneyDto;
 import coffeemachine.dto.SupplyListDto;
-import coffeemachine.enumeration.SupplyTypeEnum;
 import coffeemachine.model.SupplyModel;
 import coffeemachine.service.impl.SupplyServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -17,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static coffeemachine.enumeration.SupplyTypeEnum.*;
@@ -59,7 +57,7 @@ public class SupplyServiceImplTest {
             .availableMilkVolume(MILK_VOLUME)
             .availableCoffeeWeight(COFFEE_VOLUME)
             .availableCupNumber(CUP_VOLUME)
-            .availAbleCash(AVAILABLE_AMOUNT_CASH.intValue())
+            .availableCash(AVAILABLE_AMOUNT_CASH.intValue())
             .build();
 
 

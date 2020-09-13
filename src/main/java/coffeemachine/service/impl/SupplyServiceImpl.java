@@ -23,8 +23,8 @@ public class SupplyServiceImpl implements SupplyService {
 
     @Override
     public void fillAllSupply(SupplyListDto supplyListDto) {
-        supplyManagerComponent.fillAllSupply(supplyListDtoToSupplyModelListConverter
-                .convert(supplyListDto));
+        List<SupplyModel> supplyModelList = supplyListDtoToSupplyModelListConverter.convert(supplyListDto);
+        supplyManagerComponent.fillAllSupply(supplyModelList);
     }
 
     @Override
@@ -34,7 +34,8 @@ public class SupplyServiceImpl implements SupplyService {
         SupplyListDto supplyListDto = supplyModelListToSupplyListDtoConverter
                 .convert(remainingSupply);
 
-        supplyListDto.setAvailAbleCash(moneyReceivingComponent.getAvailableCashAmount().intValue());
+        Long availableCashAmount = moneyReceivingComponent.getAvailableCashAmount(); //todo разобраться с Long в БД
+        supplyListDto.setAvailableCash(availableCashAmount.intValue());
         return supplyListDto;
     }
 
