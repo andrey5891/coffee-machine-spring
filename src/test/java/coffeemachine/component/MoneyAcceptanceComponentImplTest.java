@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static coffeemachine.enumeration.CoffeeVariantEnum.CAPPUCCINO;
 import static coffeemachine.enumeration.MoneyLocationEnum.BANK;
 import static coffeemachine.enumeration.MoneyLocationEnum.RECEIVER;
 import static java.lang.Boolean.TRUE;
@@ -38,6 +37,7 @@ public class MoneyAcceptanceComponentImplTest {
     private static final Long RECEIVER_MONEY_LOCATION_ID = 2L;
     public static final Long MONEY_AMOUNT_IN_RECEIVER = 6L;
     public static final Long MONEY_AMOUNT_IN_BANK = 90L;
+    private static final String CAPPUCCINO = "CAPPUCCINO";
 
     Money moneyInBank = Money.builder()
             .moneyLocationId(BANK_MONEY_LOCATION_ID)

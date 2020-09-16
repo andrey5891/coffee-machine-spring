@@ -8,5 +8,5 @@ import java.util.List;
 public interface SupplyManagerComponent {
     void fillAllSupply(List<SupplyModel> supplyModelList);
 
-    void reduceAllSupply(CoffeeVariantEnum coffeeVariantEnum);
+    void reduceAllSupply(String coffeeVariantName);
 }

@@ -27,7 +27,8 @@ public class SupplyManagerComponentImplTest {
     @InjectMocks
     private SupplyManagerComponentImpl fillCoffeeMachineOfSupplyComponentImpl;
 
-    private static final CoffeeVariantEnum coffeeVariantEnumForBuy = CoffeeVariantEnum.CAPPUCCINO;
+    private static final String CAPPUCCINO = "CAPPUCCINO";
+    private static final CoffeeVariantEnum CAPPUCCINO_ENUM = CoffeeVariantEnum.CAPPUCCINO;
 
     private static final Long WATER_SUPPLY_TYPE_ID = 1L;
     private static final Long MILK_SUPPLY_TYPE_ID = 2L;
@@ -49,9 +50,9 @@ public class SupplyManagerComponentImplTest {
     private static final Integer COFFEE_AMOUNT_AFTER_FILL = COFFEE_AMOUNT + COFFEE_AMOUNT_BEFORE_FILL;
     private static final Integer CUP_AMOUNT_AFTER_FILL = CUP_AMOUNT + CUP_AMOUNT_BEFORE_FILL;
 
-    private static final Integer WATER_AMOUNT_AFTER_BUY = WATER_AMOUNT_AFTER_FILL - coffeeVariantEnumForBuy.getWaterVolume();
-    private static final Integer MILK_AMOUNT_AFTER_BUY = MILK_AMOUNT_AFTER_FILL - coffeeVariantEnumForBuy.getMilkVolume();
-    private static final Integer COFFEE_AMOUNT_AFTER_BUY = COFFEE_AMOUNT_AFTER_FILL - coffeeVariantEnumForBuy.getCoffeeWeight();
+    private static final Integer WATER_AMOUNT_AFTER_BUY = WATER_AMOUNT_AFTER_FILL - CAPPUCCINO_ENUM.getWaterVolume();
+    private static final Integer MILK_AMOUNT_AFTER_BUY = MILK_AMOUNT_AFTER_FILL - CAPPUCCINO_ENUM.getMilkVolume();
+    private static final Integer COFFEE_AMOUNT_AFTER_BUY = COFFEE_AMOUNT_AFTER_FILL - CAPPUCCINO_ENUM.getCoffeeWeight();
     private static final Integer CUP_AMOUNT_AFTER_BUY = CUP_AMOUNT_AFTER_FILL - 1;
 
     public static final SupplyModel WATER_SUPPLY_MODEL = SupplyModel.builder()
@@ -224,7 +225,7 @@ public class SupplyManagerComponentImplTest {
         when(supplyRepository.create(cupSupplyAfterBuy))
                 .thenReturn(cupSupplyAfterBuy);
 
-        fillCoffeeMachineOfSupplyComponentImpl.reduceAllSupply(coffeeVariantEnumForBuy);
+        fillCoffeeMachineOfSupplyComponentImpl.reduceAllSupply(CAPPUCCINO);
 
         verify(supplyTypeRepository, times(4)).getSupplyTypeIdBySupplyTypeEnum(any());
         verify(supplyRepository, times(4)).getLastBySupplyTypeId(any());

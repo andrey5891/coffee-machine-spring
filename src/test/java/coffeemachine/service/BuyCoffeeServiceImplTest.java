@@ -15,10 +15,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static coffeemachine.enumeration.CoffeeVariantEnum.CAPPUCCINO;
-import static coffeemachine.enumeration.CoffeeVariantEnum.ESPRESSO;
 import static java.lang.Boolean.TRUE;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class BuyCoffeeServiceImplTest {
@@ -34,6 +34,8 @@ public class BuyCoffeeServiceImplTest {
     @InjectMocks
     private BuyCoffeeServiceImpl buyCoffeeServiceImpl;
 
+    private static final String CAPPUCCINO = "CAPPUCCINO";
+    private static final String ESPRESSO = "ESPRESSO";
     private final CoffeeTypeDto CAPPUCCINO_DTO = CoffeeTypeDto.builder().coffeeType("CAPPUCCINO").build();
     private final CoffeeTypeDto ESPRESSO_DTO = CoffeeTypeDto.builder().coffeeType("ESPRESSO").build();
     private final String OK_MESSAGE = "OK";
@@ -46,7 +48,6 @@ public class BuyCoffeeServiceImplTest {
     public void makeCoffeeTest() {
         when(checkSupplyForCoffeeTypeComponent.checkAvailableSupplyAndGetMessage(CAPPUCCINO)).thenReturn(OK_MESSAGE);
         when(moneyAcceptanceComponent.isMoneyReceived(CAPPUCCINO)).thenReturn(TRUE);
-        when(converter.convert(CAPPUCCINO_DTO)).thenReturn(CAPPUCCINO);
 
         Assertions.assertEquals(successBuyCoffeeMessageDto, buyCoffeeServiceImpl.makeCoffeeIfAvailableAndGetMessage(CAPPUCCINO_DTO));
 
@@ -57,7 +58,6 @@ public class BuyCoffeeServiceImplTest {
     public void makeCoffeesWithoutNeededMilkTest() {
         when(checkSupplyForCoffeeTypeComponent.checkAvailableSupplyAndGetMessage(ESPRESSO)).thenReturn(NOT_ENOUGH_BEANS);
         //when(moneyAcceptanceComponent.isMoneyReceived(ESPRESSO)).thenReturn(TRUE);
-        when(converter.convert(ESPRESSO_DTO)).thenReturn(ESPRESSO);
 
         Assertions.assertEquals(failBuyCoffeeMessageDto, buyCoffeeServiceImpl.makeCoffeeIfAvailableAndGetMessage(ESPRESSO_DTO));
 
