@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="create_supply_table"
+               author="andrey.korchenkov"
+               dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="supply"/>
+            </not>
+        </preConditions>
+        <createTable tableName="supply">
+            <column name="id"
+                    type="BIGINT"
+                    autoIncrement="true"
+                    startWith="1">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="supply_type_id" type="BIGINT"/>
+            <column name="amount" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="fill_supply_table"
+               author="andrey.korchenkov"
+               dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="supply"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM supply;
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO supply (supply_type_id, amount)
+            VALUES
+            (1, 500),
+            (2, 300),
+            (3, 18),
+            (4, 10);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

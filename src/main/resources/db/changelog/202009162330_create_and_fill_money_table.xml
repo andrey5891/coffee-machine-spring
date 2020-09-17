@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="create_money_table"
+               author="andrey.korchenkov"
+               dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="money"/>
+            </not>
+        </preConditions>
+        <createTable tableName="money">
+            <column name="id"
+                    type="BIGINT"
+                    autoIncrement="true"
+                    startWith="1">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="money_location_id" type="BIGINT"/>
+            <column name="amount" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="fill_money_table"
+               author="andrey.korchenkov"
+               dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="money"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(1)
+                FROM money;
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO money (money_location_id, amount)
+            VALUES
+            (1, 1500),
+            (2, 6);
+        </sql>
+    </changeSet>
+</databaseChangeLog>
