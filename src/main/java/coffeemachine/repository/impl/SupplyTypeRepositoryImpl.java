@@ -14,33 +14,28 @@ public class SupplyTypeRepositoryImpl implements SupplyTypeRepository {
             1L, SupplyType.builder()
                     .id(1L)
                     .name("WATER")
-                    .measurementTypeId("ml")
                     .build(),
 
             2L, SupplyType.builder()
                     .id(2L)
                     .name("MILK")
-                    .measurementTypeId("ml")
                     .build(),
 
             3L, SupplyType.builder()
                     .id(3L)
                     .name("COFFEE")
-                    .measurementTypeId("g")
                     .build(),
 
             4L, SupplyType.builder()
                     .id(4L)
                     .name("CUP")
-                    .measurementTypeId("pcs")
                     .build()
     ));
 
     @Override
-    public Optional<Long> getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum supplyType) {
+    public Optional<SupplyType> getSupplyTypeIdBySupplyTypeEnum(SupplyTypeEnum supplyType) {
         return supplyTypeMap.values().stream()
                 .filter(e -> e.getName().equals(supplyType.getName()))
-                .map(SupplyType::getId)
                 .findFirst();
     }
 }

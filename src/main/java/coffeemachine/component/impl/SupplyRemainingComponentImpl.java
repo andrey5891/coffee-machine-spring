@@ -37,7 +37,7 @@ public class SupplyRemainingComponentImpl implements SupplyRemainingComponent {
     private SupplyModel getSupplyModelOfType(SupplyTypeEnum supplyTypeEnum) {
         Long supplyTypeId = supplyTypeRepository
                 .getSupplyTypeIdBySupplyTypeEnum(supplyTypeEnum)
-                .orElseThrow(NoSuchSupplyTypeException::new);
+                .orElseThrow(NoSuchSupplyTypeException::new).getId();
 
         Supply supply = supplyRepository.getLastBySupplyTypeId(supplyTypeId).orElseThrow(NoSuchSupplyException::new);
 

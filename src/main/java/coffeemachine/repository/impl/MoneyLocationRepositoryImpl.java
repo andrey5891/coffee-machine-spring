@@ -25,10 +25,9 @@ public class MoneyLocationRepositoryImpl implements MoneyLocationRepository {
     ));
 
     @Override
-    public Optional<Long> getMoneyLocationIdByMoneyLocationEnum(MoneyLocationEnum moneyLocation) {
+    public Optional<MoneyLocation> getMoneyLocationIdByMoneyLocationEnum(MoneyLocationEnum moneyLocation) {
         return moneyLocationMap.values().stream()
                 .filter(e -> e.getName().equals(moneyLocation.getName()))
-                .map(MoneyLocation::getId)
                 .findFirst();
     }
 }

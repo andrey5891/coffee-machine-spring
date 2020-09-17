@@ -2,6 +2,7 @@ package coffeemachine.component;
 
 import coffeemachine.component.impl.MoneyReceivingComponentImpl;
 import coffeemachine.entity.Money;
+import coffeemachine.entity.MoneyLocation;
 import coffeemachine.repository.MoneyLocationRepository;
 import coffeemachine.repository.MoneyRepository;
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,11 @@ public class MoneyReceivingComponentImplTest {
             .amount(ZERO_VALUE)
             .build();
 
+    private static final MoneyLocation BANK_MONEY_LOCATION = MoneyLocation.builder()
+            .id(BANK_MONEY_LOCATION_ID)
+            .name(BANK.getName())
+            .build();
+
     @Test
     public void mocksNotNull() {
         assertNotNull(moneyRepository);
@@ -51,7 +57,7 @@ public class MoneyReceivingComponentImplTest {
     @Test
     public void getAvailableCashAmountTest() {
         when(moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK))
-                .thenReturn(Optional.of(BANK_MONEY_LOCATION_ID));
+                .thenReturn(Optional.of(BANK_MONEY_LOCATION));
 
         when(moneyRepository.getLastByMoneyLocationId(BANK_MONEY_LOCATION_ID))
                 .thenReturn(Optional.of(moneyInBank));
@@ -62,7 +68,7 @@ public class MoneyReceivingComponentImplTest {
     @Test
     public void setAvailAbleCashAMountToZeroTest() {
         when(moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK))
-                .thenReturn(Optional.of(BANK_MONEY_LOCATION_ID));
+                .thenReturn(Optional.of(BANK_MONEY_LOCATION));
 
         when(moneyRepository.create(moneyInBankAfterSettingZero))
                 .thenReturn(moneyInBankAfterSettingZero);

@@ -28,7 +28,7 @@ public class MoneyAcceptanceComponentImpl implements MoneyAcceptanceComponent {
     @Override
     public Boolean isMoneyReceived(String coffeeVariantName) {
         Long moneyInReceiverLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(RECEIVER)
-                .orElseThrow(NoSuchMoneyLocationTypeException::new);
+                .orElseThrow(NoSuchMoneyLocationTypeException::new).getId();
 
         Optional<Money> moneyInReceiver = moneyRepository.getLastByMoneyLocationId(moneyInReceiverLocationId);
 
@@ -46,10 +46,10 @@ public class MoneyAcceptanceComponentImpl implements MoneyAcceptanceComponent {
     @Override
     public void moveMoneyFromReceiverToBank() {
         Long moneyInReceiverLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(RECEIVER)
-                .orElseThrow(NoSuchMoneyLocationTypeException::new);
+                .orElseThrow(NoSuchMoneyLocationTypeException::new).getId();
 
         Long moneyInBankLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK)
-                .orElseThrow(NoSuchMoneyLocationTypeException::new);
+                .orElseThrow(NoSuchMoneyLocationTypeException::new).getId();
 
         Long amountInReceiver = moneyRepository.getLastByMoneyLocationId(moneyInReceiverLocationId)
                 .orElseThrow(NoSuchMoneyException::new).getAmount();

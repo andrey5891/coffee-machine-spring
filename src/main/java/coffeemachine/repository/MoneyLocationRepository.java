@@ -1,9 +1,10 @@
 package coffeemachine.repository;
 
+import coffeemachine.entity.MoneyLocation;
 import coffeemachine.enumeration.MoneyLocationEnum;
 
 import java.util.Optional;
 
 public interface MoneyLocationRepository {
-    Optional<Long> getMoneyLocationIdByMoneyLocationEnum(MoneyLocationEnum moneyLocation);
+    Optional<MoneyLocation> getMoneyLocationIdByMoneyLocationEnum(MoneyLocationEnum moneyLocation);
 }

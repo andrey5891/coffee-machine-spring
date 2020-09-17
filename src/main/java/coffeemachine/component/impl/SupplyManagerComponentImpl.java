@@ -32,7 +32,7 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
     public void fillAllSupply(List<SupplyModel> supplyModelList) {
         for (SupplyModel supplyModel : supplyModelList) {
             Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyModel.getSupplyTypeEnum())
-                    .orElseThrow(NoSuchSupplyTypeException::new);
+                    .orElseThrow(NoSuchSupplyTypeException::new).getId();
 
             Integer amount = supplyRepository
                     .getLastBySupplyTypeId(supplyTypeId)
@@ -57,7 +57,7 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
         List<SupplyModel> supplyModelList = getSupplyModelListFromCoffeeVariant(coffeeType);
         for (SupplyModel supplyModel : supplyModelList) {
             Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyModel.getSupplyTypeEnum())
-                    .orElseThrow(NoSuchSupplyTypeException::new);
+                    .orElseThrow(NoSuchSupplyTypeException::new).getId();
 
             Integer amount = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                     .orElseThrow(NoSuchSupplyException::new).getAmount();

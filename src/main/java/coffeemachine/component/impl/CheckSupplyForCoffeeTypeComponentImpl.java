@@ -24,23 +24,35 @@ public class CheckSupplyForCoffeeTypeComponentImpl implements CheckSupplyForCoff
 
     @Override
     public String checkAvailableSupplyAndGetMessage(String coffeeVariantName) {
-        Integer availableWaterVolume = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER).orElseThrow(NoSuchSupplyTypeException::new))
+        Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(WATER)
+                .orElseThrow(NoSuchSupplyTypeException::new)
+                .getId();
+
+        Integer availableWaterVolume = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                 .orElseThrow()
                 .getAmount();
 
-        Integer availableMilkVolume = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK).orElseThrow(NoSuchSupplyTypeException::new))
+        supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(MILK)
+                .orElseThrow(NoSuchSupplyTypeException::new)
+                .getId();
+
+        Integer availableMilkVolume = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                 .orElseThrow()
                 .getAmount();
 
-        Integer availableCoffeeWeight = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE).orElseThrow(NoSuchSupplyTypeException::new))
+        supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(COFFEE)
+                .orElseThrow(NoSuchSupplyTypeException::new)
+                .getId();
+
+        Integer availableCoffeeWeight = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                 .orElseThrow()
                 .getAmount();
 
-        Integer availableCupNumber = supplyRepository.getLastBySupplyTypeId(
-                supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP).orElseThrow(NoSuchSupplyTypeException::new))
+        supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(CUP)
+                .orElseThrow(NoSuchSupplyTypeException::new)
+                .getId();
+
+        Integer availableCupNumber = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                 .orElseThrow()
                 .getAmount();
 

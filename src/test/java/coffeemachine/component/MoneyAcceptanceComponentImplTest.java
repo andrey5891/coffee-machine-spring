@@ -2,6 +2,7 @@ package coffeemachine.component;
 
 import coffeemachine.component.impl.MoneyAcceptanceComponentImpl;
 import coffeemachine.entity.Money;
+import coffeemachine.entity.MoneyLocation;
 import coffeemachine.repository.MoneyLocationRepository;
 import coffeemachine.repository.MoneyRepository;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,16 @@ public class MoneyAcceptanceComponentImplTest {
     public static final Long MONEY_AMOUNT_IN_BANK = 90L;
     private static final String CAPPUCCINO = "CAPPUCCINO";
 
+    private static final MoneyLocation RECEIVER_MONEY_LOCATION = MoneyLocation.builder()
+            .id(RECEIVER_MONEY_LOCATION_ID)
+            .name(RECEIVER.getName())
+            .build();
+
+    private static final MoneyLocation BANK_MONEY_LOCATION = MoneyLocation.builder()
+            .id(BANK_MONEY_LOCATION_ID)
+            .name(BANK.getName())
+            .build();
+
     Money moneyInBank = Money.builder()
             .moneyLocationId(BANK_MONEY_LOCATION_ID)
             .amount(MONEY_AMOUNT_IN_BANK)
@@ -52,7 +63,7 @@ public class MoneyAcceptanceComponentImplTest {
     @Test
     public void moneyInReceiverTest() {
         when(moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(RECEIVER))
-                .thenReturn(Optional.of(RECEIVER_MONEY_LOCATION_ID));
+                .thenReturn(Optional.of(RECEIVER_MONEY_LOCATION));
 
         when(moneyRepository.getLastByMoneyLocationId(RECEIVER_MONEY_LOCATION_ID))
                 .thenReturn(Optional.of(moneyInReceiver));
@@ -63,10 +74,10 @@ public class MoneyAcceptanceComponentImplTest {
     @Test
     public void moveMoneyFromReceiverToBankTest() {
         when(moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(RECEIVER))
-                .thenReturn(Optional.of(RECEIVER_MONEY_LOCATION_ID));
+                .thenReturn(Optional.of(RECEIVER_MONEY_LOCATION));
 
         when(moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK))
-                .thenReturn(Optional.of(BANK_MONEY_LOCATION_ID));
+                .thenReturn(Optional.of(BANK_MONEY_LOCATION));
 
         when(moneyRepository.getLastByMoneyLocationId(RECEIVER_MONEY_LOCATION_ID))
                 .thenReturn(Optional.of(moneyInReceiver));

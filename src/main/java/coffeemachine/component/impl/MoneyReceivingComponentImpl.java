@@ -21,7 +21,7 @@ public class MoneyReceivingComponentImpl implements MoneyReceivingComponent {
     @Override
     public Long getAvailableCashAmount() {
         Long moneyInBankLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK)
-                .orElseThrow(NoSuchMoneyLocationTypeException::new);
+                .orElseThrow(NoSuchMoneyLocationTypeException::new).getId();
 
         return moneyRepository.getLastByMoneyLocationId(moneyInBankLocationId)
                 .orElseThrow(NoSuchMoneyException::new).getAmount();
@@ -30,7 +30,7 @@ public class MoneyReceivingComponentImpl implements MoneyReceivingComponent {
     @Override
     public void setAvailAbleCashAMountToZero() {
         Long moneyInBankLocationId = moneyLocationRepository.getMoneyLocationIdByMoneyLocationEnum(BANK)
-                .orElseThrow(NoSuchMoneyLocationTypeException::new);
+                .orElseThrow(NoSuchMoneyLocationTypeException::new).getId();
 
         moneyRepository.create(Money.builder()
                 .moneyLocationId(moneyInBankLocationId)
