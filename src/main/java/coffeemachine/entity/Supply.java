@@ -17,7 +17,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Supply {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO, generator = "supply_id_seq")
     private Long id;
 
     private Long supplyTypeId;

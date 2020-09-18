@@ -17,7 +17,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Money {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO, generator = "money_id_seq")
     private Long id;
 
     private Long moneyLocationId;
