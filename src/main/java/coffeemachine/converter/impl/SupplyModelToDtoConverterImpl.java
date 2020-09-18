@@ -11,10 +11,10 @@ public class SupplyModelToDtoConverterImpl implements Converter<List<SupplyModel
     @Override
     public SupplyListDto convert(List<SupplyModel> source) {
         return SupplyListDto.builder()
-                .availableWaterVolume(source.get(0).getAmount())
-                .availableMilkVolume(source.get(1).getAmount())
-                .availableCoffeeWeight(source.get(2).getAmount())
-                .availableCupNumber(source.get(3).getAmount())
+                .availableWaterVolume(source.get(0).getAmount().intValue())
+                .availableMilkVolume(source.get(1).getAmount().intValue())
+                .availableCoffeeWeight(source.get(2).getAmount().intValue())
+                .availableCupNumber(source.get(3).getAmount().intValue())
                 .build();
     }
 }

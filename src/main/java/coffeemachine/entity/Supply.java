@@ -22,5 +22,5 @@ public class Supply {
 
     private Long supplyTypeId;
 
-    private Integer amount;
+    private Long amount;
 }

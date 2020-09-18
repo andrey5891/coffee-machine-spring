@@ -46,25 +46,25 @@ public class SupplyRepositoryImpl implements SupplyRepository {
                         currentId, Supply.builder()
                                 .id(getNextIdValue())
                                 .supplyTypeId(1L)
-                                .amount(500)
+                                .amount(500L)
                                 .build(),
 
                         currentId, Supply.builder()
                                 .id(getNextIdValue())
                                 .supplyTypeId(2L)
-                                .amount(300)
+                                .amount(300L)
                                 .build(),
 
                         currentId, Supply.builder()
                                 .id(getNextIdValue())
                                 .supplyTypeId(3L)
-                                .amount(18)
+                                .amount(18L)
                                 .build(),
 
                         currentId, Supply.builder()
                                 .id(getNextIdValue())
                                 .supplyTypeId(4L)
-                                .amount(10)
+                                .amount(10L)
                                 .build()
                 ));
     }

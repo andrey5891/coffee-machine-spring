@@ -26,7 +26,7 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
     private final SupplyRepository supplyRepository;
     private final SupplyTypeRepository supplyTypeRepository;
     private final CoffeeTypeRepositoryPsql coffeeTypeRepositoryPsql;
-    private final Integer ONE_CUP_AMOUNT = 1;
+    private final Long ONE_CUP_AMOUNT = 1L;
 
     @Override
     public void fillAllSupply(List<SupplyModel> supplyModelList) {
@@ -34,7 +34,7 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
             Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyModel.getSupplyTypeEnum())
                     .orElseThrow(NoSuchSupplyTypeException::new).getId();
 
-            Integer amount = supplyRepository
+            Long amount = supplyRepository
                     .getLastBySupplyTypeId(supplyTypeId)
                     .orElseThrow(NoSuchSupplyTypeException::new)
                     .getAmount();
@@ -59,7 +59,7 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
             Long supplyTypeId = supplyTypeRepository.getSupplyTypeIdBySupplyTypeEnum(supplyModel.getSupplyTypeEnum())
                     .orElseThrow(NoSuchSupplyTypeException::new).getId();
 
-            Integer amount = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
+            Long amount = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                     .orElseThrow(NoSuchSupplyException::new).getAmount();
 
             Supply supply = Supply.builder()
@@ -74,17 +74,17 @@ public class SupplyManagerComponentImpl implements SupplyManagerComponent {
         return List.of(
                 SupplyModel.builder()
                         .supplyTypeEnum(WATER)
-                        .amount(coffeeType.getWaterAmount().intValue())
+                        .amount(coffeeType.getWaterAmount())
                         .build(),
 
                 SupplyModel.builder()
                         .supplyTypeEnum(MILK)
-                        .amount(coffeeType.getWaterAmount().intValue())
+                        .amount(coffeeType.getWaterAmount())
                         .build(),
 
                 SupplyModel.builder()
                         .supplyTypeEnum(COFFEE)
-                        .amount(coffeeType.getCoffeeBeanAmount().intValue())
+                        .amount(coffeeType.getCoffeeBeanAmount())
                         .build(),
 
                 SupplyModel.builder()

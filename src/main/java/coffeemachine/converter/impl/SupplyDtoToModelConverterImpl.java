@@ -16,22 +16,22 @@ public class SupplyDtoToModelConverterImpl implements Converter<SupplyListDto, L
         return List.of(
                 SupplyModel.builder()
                         .supplyTypeEnum(WATER)
-                        .amount(source.getAvailableWaterVolume())
+                        .amount(source.getAvailableWaterVolume().longValue())
                         .build(),
 
                 SupplyModel.builder()
                         .supplyTypeEnum(MILK)
-                        .amount(source.getAvailableMilkVolume())
+                        .amount(source.getAvailableMilkVolume().longValue())
                         .build(),
 
                 SupplyModel.builder()
                         .supplyTypeEnum(COFFEE)
-                        .amount(source.getAvailableCoffeeWeight())
+                        .amount(source.getAvailableCoffeeWeight().longValue())
                         .build(),
 
                 SupplyModel.builder()
                         .supplyTypeEnum(CUP)
-                        .amount(source.getAvailableCupNumber())
+                        .amount(source.getAvailableCupNumber().longValue())
                         .build()
         );
     }

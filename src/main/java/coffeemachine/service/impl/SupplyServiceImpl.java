@@ -34,7 +34,7 @@ public class SupplyServiceImpl implements SupplyService {
         SupplyListDto supplyListDto = supplyModelListToSupplyListDtoConverter
                 .convert(remainingSupply);
 
-        Long availableCashAmount = moneyReceivingComponent.getAvailableCashAmount(); //todo разобраться с Long в БД
+        Long availableCashAmount = moneyReceivingComponent.getAvailableCashAmount();
         supplyListDto.setAvailableCash(availableCashAmount.intValue());
         return supplyListDto;
     }

@@ -28,7 +28,7 @@ public class CheckSupplyForCoffeeTypeComponentImpl implements CheckSupplyForCoff
                 .orElseThrow(NoSuchSupplyTypeException::new)
                 .getId();
 
-        Integer availableWaterVolume = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
+        Long availableWaterVolume = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                 .orElseThrow()
                 .getAmount();
 
@@ -36,7 +36,7 @@ public class CheckSupplyForCoffeeTypeComponentImpl implements CheckSupplyForCoff
                 .orElseThrow(NoSuchSupplyTypeException::new)
                 .getId();
 
-        Integer availableMilkVolume = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
+        Long availableMilkVolume = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                 .orElseThrow()
                 .getAmount();
 
@@ -44,7 +44,7 @@ public class CheckSupplyForCoffeeTypeComponentImpl implements CheckSupplyForCoff
                 .orElseThrow(NoSuchSupplyTypeException::new)
                 .getId();
 
-        Integer availableCoffeeWeight = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
+        Long availableCoffeeWeight = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                 .orElseThrow()
                 .getAmount();
 
@@ -52,7 +52,7 @@ public class CheckSupplyForCoffeeTypeComponentImpl implements CheckSupplyForCoff
                 .orElseThrow(NoSuchSupplyTypeException::new)
                 .getId();
 
-        Integer availableCupNumber = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
+        Long availableCupNumber = supplyRepository.getLastBySupplyTypeId(supplyTypeId)
                 .orElseThrow()
                 .getAmount();
 
