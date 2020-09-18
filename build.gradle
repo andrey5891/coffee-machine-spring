@@ -22,13 +22,11 @@ test {
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
 
-    //Добавил для подключения к БД
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile('org.postgresql:postgresql')
-    /*compile('javax.xml.bind:jaxb-api')
-    compile('com.sun.xml.bind:jaxb-core')
-    compile('com.sun.xml.bind:jaxb-impl')*/
+
 
     compile 'org.liquibase:liquibase-core'
 
