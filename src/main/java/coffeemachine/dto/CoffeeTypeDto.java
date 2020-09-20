@@ -9,6 +9,6 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CoffeeTypeDto {
-    @NotBlank(message = "coffee type must not be blank")
+    @NotBlank(message = "coffee type must have not blank value")
     private String coffeeType;
 }

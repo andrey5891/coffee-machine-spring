@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class SupplyController {
@@ -25,7 +27,7 @@ public class SupplyController {
     }
 
     @PostMapping("/fill")
-    public void fillAllSupply(@RequestBody SupplyListDto supplyListDto) {
+    public void fillAllSupply(@Valid @RequestBody SupplyListDto supplyListDto) {
         supplyService.fillAllSupply(supplyListDto);
     }
 }

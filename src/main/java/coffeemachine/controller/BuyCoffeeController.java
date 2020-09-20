@@ -3,17 +3,11 @@ package coffeemachine.controller;
 import coffeemachine.dto.BuyCoffeeMessageDto;
 import coffeemachine.dto.CoffeeTypeDto;
 import coffeemachine.exception.NoSuchCoffeeTypeException;
-import coffeemachine.exception.NoSuchCoffeeVariantException;
 import coffeemachine.service.BuyCoffeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -28,7 +22,7 @@ public class BuyCoffeeController {
         return buyCoffeeService.makeCoffeeIfAvailableAndGetMessage(coffeeTypeDto);
     }
 
-    @ExceptionHandler(NoSuchCoffeeTypeException.class)
+    /*@ExceptionHandler(NoSuchCoffeeTypeException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public HashMap<String, String> handleIndexOutOfBoundsException(Exception e) {
         HashMap<String, String> response = new HashMap<>();
@@ -44,5 +38,5 @@ public class BuyCoffeeController {
         response.put("message", e.getMessage());
         response.put("error", e.getClass().getSimpleName());
         return response;
-    }
+    }*/
 }
